@@ -1,0 +1,49 @@
+# Object files and dependencies
+*.o
+*.d
+*.obj
+obj/
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# VS Code config
+.vscode/*
+
+# Server config files
+.nfs*
+
+# vim swap files
+*.swp
+
+# OS X
+.DS_Store
+
+philo/philo
+valgrind-trace.txt
+valgrind-out.txt
+
+test*
