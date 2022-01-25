@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/25 15:23:58 by llalba           ###   ########.fr       */
+/*   Updated: 2022/01/25 18:32:03 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_error(char *str)
+void	ft_error(t_data *data, char *str)
 {
 	write(2, "Error: \n", 8);
 	write(2, str, ft_strlen(str));
-	return (EXIT_FAILURE);
+	if (data)
+		free_data(data);
+	exit (EXIT_FAILURE);
 }
 
 
@@ -63,4 +65,26 @@ void	*ft_calloc(size_t count, size_t size)
 		return (NULL);
 	ft_bzero(ptr, count * size);
 	return (ptr);
+}
+
+void	ft_strncpy(char *s, char **d, int n)
+{
+	int i;
+
+	i = -1;
+	//TODO suppose que s pas NULL + d existe et >n
+	while (++i < n)
+		(*d)[i] = s[i];
+}
+
+int	ft_cmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i] && s2[i] != ' ')
+		i++;
+	if (!s1[i] && s2[i] == ' ')
+		return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
