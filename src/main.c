@@ -6,26 +6,53 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/25 15:51:34 by llalba           ###   ########.fr       */
+/*   Updated: 2022/01/25 16:19:32 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+void skip_spaces(char **line)
+{
+	while (**line == ' ')
+		(*line)++;
+}
+
+size_t	ft_cut(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str && str[i] && str[i] != ' ')
+		i++;
+	return (i);
+}
+
+int get_f(t_data *data, char **line)
+{
+	if (**line == 'F' && !data->f)
+	{
+		(*line)++;
+		skip_spaces(line);
+		data->f = ;
+		return (SUCCESS);
+	}
+	else
+		return (ft_error("invalid map\n"));
+	return (SUCCESS);
+}
+
 int	ft_parsing(t_data *data, char *line)
 {
 	if (1 || "pas_encore_dans_la_map")
 	{
-		while (*line == ' ')
-			line++;
-		if (*line == 'F' && !data->f)
-		{
-			data->f = 
-		}
+		skip_spaces(&line);
+		get_f(data, &line);
 		else if (*line == 'C')
 		{
 
 		}
+		else
 	}
 	return (0);
 }
