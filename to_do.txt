@@ -1,1 +1,15 @@
 - installer la minilibX
+
+- ajouter un dossier de cartes valides :
+🔸config dans des ordres aléatoires
+🔸sans retour à la ligne final
+🔸mini cartes
+🔸cartes géantes
+🔸plein d'espaces à la fin de certaines lignes
+🔸plein d'espaces au début de toutes les lignes
+🔸lignes vides entre les éléments descriptifs
+🔸espaces entre C et son code couleur
+🔸espaces entre F et son code couleur
+🔸espaces entre les orientations et les PATH
+🔸espaces au sein même des codes couleurs RGB
+🔸espaces au sein même du contenu descriptif de la carte ("les espaces sont une partie valable de la carte")
