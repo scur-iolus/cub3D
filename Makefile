@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/01/25 15:27:39 by llalba           ###   ########.fr        #
+#    Updated: 2022/01/31 17:13:33 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ OBJ_DIR			= ./obj/
 SRC_LIST		= \
 				main.c \
 				gnl.c \
-				utils.c
+				utils.c \
+				ft_split.c
 
 SRC				= $(SRC_LIST)
 

@@ -1,0 +1,20 @@
+NO   ./textures/bluestone.xpm
+SO ./textures/south.xpm
+WE ./textures/west.xpm
+EA ./textures/east.xpm
+
+
+F  05,30,0
+
+C  00,100,0
+
+
+
+
+
+
+1111111111
+1000000001
+1000000001
+100000W001
+1111111111110001

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/25 18:21:14 by llalba           ###   ########.fr       */
+/*   Updated: 2022/01/31 18:16:04 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,29 @@
 
 typedef char t_bool;
 
-
+typedef struct s_map
+{
+	char	*content;
+	int		width;
+	int		height;
+}				t_map;
+typedef struct s_color
+{
+	t_bool		not_yet;
+	int			r;
+	int 		g;
+	int 		b;
+}				t_color;
 typedef struct s_data
 {
-	char		*map;
+	t_map		map;
 	char		*no;
 	char		*so;
 	char		*we;
 	char		*ea;
-	char		*f;
-	char		*c;
+	char		*color_str;
+	t_color		f;
+	t_color		c;
 	char		*line;
 
 }				t_data;
@@ -54,10 +67,13 @@ void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
 void		ft_strncpy(char *s, char **d, int n);
 int			ft_cmp(char *s1, char *s2);
-
-
+int			ft_atoi(const char *str);
 void		free_data(t_data *data);
+void		ft_free_split(char **ptr);
+
 int			get_next_line(int fd, char **line);
 
+
+char	**ft_split(char const *str, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/25 18:32:03 by llalba           ###   ########.fr       */
+/*   Updated: 2022/01/31 17:38:24 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,45 @@ int	ft_cmp(char *s1, char *s2)
 	if (!s1[i] && s2[i] == ' ')
 		return (0);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int	ft_atoi(const char *str)
+{
+	unsigned long long	value;
+	size_t				i;
+	t_bool				empty;
+
+	value = 0;
+	empty = TRUE;
+	i = 0;
+	while (str[i] == 32)
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		empty = FALSE;
+		value = value * 10 + str[i++] - 48;
+	}
+	while (str[i] == ' ')
+		i++;
+	if (str[i])
+		return (-1);
+	if (empty || value > 2147483647)
+		return (-1);
+	return (value);
+}
+
+
+void	ft_free_split(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	if (ptr == NULL)
+		return ;
+	while (ptr[i])
+	{
+		free (ptr[i]);
+		i++;
+	}
+	free(ptr);
 }
