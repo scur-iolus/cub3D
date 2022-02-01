@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/31 18:16:04 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/01 17:39:50 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef struct s_color
 {
 	t_bool		not_yet;
 	int			r;
-	int 		g;
-	int 		b;
+	int			g;
+	int			b;
 }				t_color;
 typedef struct s_data
 {
@@ -56,6 +56,9 @@ typedef struct s_data
 	t_color		f;
 	t_color		c;
 	char		*line;
+	int			state;
+	int			map_start;
+	int			ready;
 
 }				t_data;
 
