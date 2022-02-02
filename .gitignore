@@ -43,7 +43,7 @@ obj/
 .DS_Store
 
 mlx_linux/*.c
-./cub3D
+cub3D
 valgrind-trace.txt
 valgrind-out.txt
 
