@@ -42,7 +42,7 @@ obj/
 # OS X
 .DS_Store
 
-philo/philo
+./cub3D
 valgrind-trace.txt
 valgrind-out.txt
 

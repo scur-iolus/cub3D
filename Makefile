@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/02/02 13:59:32 by llalba           ###   ########.fr        #
+#    Updated: 2022/02/02 16:45:58 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ NAME			= cub3D
 
 CC				= gcc
 
-FLAGS			= -Wall -Werror -Wextra -pthread
+FLAGS			= -Wall -Werror -Wextra
+
+MLX_FLAGS		= -Lmlx_linux -lmlx -lXext -lX11 -lm
 
 HEADERS_DIR		= ./include/
 
@@ -35,6 +37,7 @@ SRC_LIST		= \
 				get_map.c \
 				free.c \
 				check_map.c \
+				str.c \
 				init.c
 
 SRC				= $(SRC_LIST)
@@ -50,7 +53,7 @@ $(NAME):		$(OBJ)
 				@$(call filename,"$(OBJ_DIR)")
 				@$(call green,". ✅")
 				@/bin/echo -e "\n💫 Linking..."
-				@$(CC) $(FLAGS) -I $(HEADERS_DIR) -o $(NAME) $(OBJ) $(ADDONS)
+				@$(CC) $(FLAGS) -I $(HEADERS_DIR) -o $(NAME) $(OBJ) $(MLX_FLAGS)
 				@$(call green,"Executable ")
 				@$(call filename,"'$(NAME)'")
 				@$(call green," successfully created. ✅")
@@ -59,7 +62,7 @@ $(NAME):		$(OBJ)
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
 				@mkdir -p $(OBJ_DIR)
 				@echo "🏗  Compiling $<..."
-				@$(CC) $(CC_FLAGS) -I $(HEADERS_DIR) -MMD -MP -c $< -o $@
+				@$(CC) $(CC_FLAGS) -I $(HEADERS_DIR) -Imlx_linux -MMD -MP -c $< -o $@
 
 all:			$(NAME)
 

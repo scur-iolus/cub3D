@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 14:00:09 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 16:31:54 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
+# include "../mlx_linux/mlx.h"
 
 # define ERROR				"Error\n"
 # define TRUE				1
@@ -30,7 +31,7 @@
 # define FAIL				1
 # define SUCCESS			0
 
-typedef char t_bool;
+typedef char	t_bool;
 
 typedef struct s_map
 {
@@ -65,8 +66,8 @@ typedef struct s_data
 }				t_data;
 
 // INIT
-void	init_data(t_data *data);
-void	init_color(t_data *data);
+void		init_data(t_data *data);
+void		init_color(t_data *data);
 
 // UTILS
 int			ft_strlen(const char *s);
@@ -103,7 +104,7 @@ void		set_map(t_data *data);
 // GET_NEXT_LINE
 int			get_next_line(int fd, char **line);
 
-
-char	**ft_split(char const *str, char c);
+// SPLIT
+char		**ft_split(char const *str, char c);
 
 #endif

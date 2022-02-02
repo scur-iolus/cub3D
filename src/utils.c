@@ -6,40 +6,19 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 13:09:48 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 16:37:18 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s && s[i])
-		i++;
-	return (i);
-}
-
 void	ft_error(t_data *data, char *str)
 {
-	write(2, "Error: \n", 8);
-	write(2, str, ft_strlen(str));
+	(void)write(2, "Error: \n", 8);
+	(void)write(2, str, ft_strlen(str));
 	if (data)
 		free_data(data);
 	exit (EXIT_FAILURE);
-}
-
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return ((unsigned char) s1[i] - (unsigned char)s2[i]);
 }
 
 int	map_is_valid(char *cub)
@@ -67,28 +46,6 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-void	ft_strncpy(char *s, char **d, int n)
-{
-	int i;
-
-	i = -1;
-	//TODO suppose que s pas NULL + d existe et >n
-	while (++i < n)
-		(*d)[i] = s[i];
-}
-
-int	ft_cmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i] && s2[i] != ' ')
-		i++;
-	if (!s1[i] && s2[i] == ' ')
-		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-}
-
 int	ft_atoi(const char *str)
 {
 	unsigned long long	value;
@@ -114,21 +71,6 @@ int	ft_atoi(const char *str)
 	return (value);
 }
 
-void	ft_free_split(char **ptr)
-{
-	int	i;
-
-	i = 0;
-	if (ptr == NULL)
-		return ;
-	while (ptr[i])
-	{
-		free (ptr[i]);
-		i++;
-	}
-	free(ptr);
-}
-
 void	skip_spaces(char **line)
 {
 	while (**line == ' ')
@@ -137,7 +79,7 @@ void	skip_spaces(char **line)
 
 int	count_comma(char *color_str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (*color_str && i < 4)
@@ -157,18 +99,4 @@ t_bool	is_not_in_set(t_data *data)
 		&& data->line[0] != 0)
 		return (TRUE);
 	return (FALSE);
-}
-
-char	*ft_cpy(void *dst, const void *src, int n)
-{
-	unsigned char		*d;
-	const unsigned char	*s;
-
-	if (!dst && !src)
-		return (NULL);
-	d = dst;
-	s = src;
-	while (n--)
-		*d++ = *s++;
-	return (dst);
 }

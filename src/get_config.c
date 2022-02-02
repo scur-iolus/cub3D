@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:42 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 12:05:02 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 15:46:50 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	get_coord(t_data *data, char *coord, char **s)
 			ft_error(data, "malloc failed\n");
 		ft_strncpy(line, s, len);
 		data->state++;
-		//printf("💭 data->so : %s\n", data->so);//FIXME
 		return (1);
 	}
 	else if (!ft_cmp(coord, line) && *s)

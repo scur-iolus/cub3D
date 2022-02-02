@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 12:01:29 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 15:48:48 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,23 @@ void	free_data(t_data *data)
 		free(data->we);
 	if (data->ea)
 		free(data->ea);
-	// if (data->f)
-	// 	free(data->f);
-	// if (data->c)
-	// 	free(data->c);
 	if (data->color_str)
 		free(data->color_str);
 	if (data->line)
 		free(data->line);
 }
 
+void	ft_free_split(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	if (ptr == NULL)
+		return ;
+	while (ptr[i])
+	{
+		free (ptr[i]);
+		i++;
+	}
+	free(ptr);
+}
