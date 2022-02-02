@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:59:36 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 14:13:46 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 15:00:25 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,67 +16,75 @@ static t_bool	check_line(t_data *data, int i, char *content)
 {
 	int	j;
 
-	j = 0;
-	while (j < i)
+	j = i - 1;
+	while (j >= (i / data->map.width) * data->map.width)
 	{
 		if (content[j] == '1')
 			break ;
-		j++;
-	}
-	if (j == i)
-		return (FALSE);
-	j = data->map.width - 1;
-	while (j > i)
-	{
-		if (content[j] == '1')
-			break ;
+		if (content[j] == ' ' || content[j] == '\0')
+			return (FALSE);
 		j--;
 	}
-	if (j == i)
+	if (j == (i / data->map.width) * data->map.width && content[j] != '1')
 		return (FALSE);
-	return (TRUE);
+	j = i + 1;
+	while (j < (i / data->map.width + 1) * data->map.width)
+	{
+		if (content[j] == '1')
+			return (TRUE);
+		if (content[j] == ' ' || content[j] == '\0')
+			return (FALSE);
+		j++;
+	}
+	return (FALSE);
 }
 
 static t_bool	check_column_up(t_data *data, int i, char *content)
 {
 	int	w;
 	int	h;
-	int	nb_line;
+	int	line_i;
+	int	col_i;
 	int	j;
 
 	w = data->map.width;
 	h = data->map.height;
-	nb_line = i / w;
-	j = 0;
-	while (j < i)
+	line_i = i / w;
+	col_i = i - line_i * w;
+	j = line_i -1;
+	while (j >= 0)
 	{
-		if (content[j] == '1')
-			break ;
-		j++;
+		if (content[j * w + col_i] == '1')
+			return (TRUE);
+		if (content[j * w + col_i] == ' ' || content[j * w + col_i] == '\0')
+			return (FALSE);
+		j--;
 	}
-	if (j == i)
-		return (FALSE);
-	return (TRUE);
+	return (FALSE);
 }
 
 static t_bool	check_column_down(t_data *data, int i, char *content)
 {
-	int	j;
 	int	w;
 	int	h;
+	int	line_i;
+	int	col_i;
+	int	j;
 
 	w = data->map.width;
 	h = data->map.height;
-	j = w - 1;
-	while (j > i)
+	line_i = i / w;
+	col_i = i - line_i * w;
+	j = line_i + 1;
+	while (j < h)
 	{
-		if (content[j] == '1')
-			break ;
-		j--;
+		if (content[j * w + col_i] == '1')
+			return (TRUE);
+		if (content[j * w + col_i] == ' ' || content[j * w + col_i] == '\0')
+			return (FALSE);
+		j++;
 	}
-	if (j == i)
-		return (FALSE);
-	return (TRUE);
+	return (FALSE);
 }
 
 void	check_frame(t_data *data)
