@@ -42,6 +42,7 @@ obj/
 # OS X
 .DS_Store
 
+mlx_linux/*.c
 ./cub3D
 valgrind-trace.txt
 valgrind-out.txt
