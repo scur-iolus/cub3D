@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/31 17:38:24 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 13:09:48 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int	ft_atoi(const char *str)
 	return (value);
 }
 
-
 void	ft_free_split(char **ptr)
 {
 	int	i;
@@ -128,4 +127,48 @@ void	ft_free_split(char **ptr)
 		i++;
 	}
 	free(ptr);
+}
+
+void	skip_spaces(char **line)
+{
+	while (**line == ' ')
+		(*line)++;
+}
+
+int	count_comma(char *color_str)
+{
+	int i;
+
+	i = 0;
+	while (*color_str && i < 4)
+	{
+		if (*color_str == ',')
+			i++;
+		color_str++;
+	}
+	return (i);
+}
+
+t_bool	is_not_in_set(t_data *data)
+{
+	if (data->line[0] != 'F' && data->line[0] != 'C' \
+		&& ft_cmp(data->line, "NO") && ft_cmp(data->line, "SO") \
+		&& ft_cmp(data->line, "WE") && ft_cmp(data->line, "EA") \
+		&& data->line[0] != 0)
+		return (TRUE);
+	return (FALSE);
+}
+
+char	*ft_cpy(void *dst, const void *src, int n)
+{
+	unsigned char		*d;
+	const unsigned char	*s;
+
+	if (!dst && !src)
+		return (NULL);
+	d = dst;
+	s = src;
+	while (n--)
+		*d++ = *s++;
+	return (dst);
 }

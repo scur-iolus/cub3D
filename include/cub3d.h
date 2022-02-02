@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/01 17:39:50 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 14:00:09 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_map
 	char	*content;
 	int		width;
 	int		height;
+	int		pos;
+	char	compass;
 }				t_map;
 typedef struct s_color
 {
@@ -62,6 +64,11 @@ typedef struct s_data
 
 }				t_data;
 
+// INIT
+void	init_data(t_data *data);
+void	init_color(t_data *data);
+
+// UTILS
 int			ft_strlen(const char *s);
 void		ft_error(t_data *data, char *str);
 int			ft_strcmp(char *s1, char *s2);
@@ -73,7 +80,27 @@ int			ft_cmp(char *s1, char *s2);
 int			ft_atoi(const char *str);
 void		free_data(t_data *data);
 void		ft_free_split(char **ptr);
+void		skip_spaces(char **line);
+t_bool		is_not_in_set(t_data *data);
+char		*ft_cpy(void *dst, const void *src, int n);
+int			count_comma(char *color_str);
 
+// GET_CONFIG
+size_t		get_coord_len(t_data *data, char *str);
+size_t		get_color_len(char *str);
+int			get_coord(t_data *data, char *coord, char **s);
+int			get_colors(t_data *data, char c, t_color *color);
+void		format_color(t_data *data, t_color *color);
+
+// CHECK_MAP
+void		check_frame(t_data *data);
+
+// GET_MAP
+void		get_map_size(t_data *data);
+void		get_map_content(t_data *data);
+void		set_map(t_data *data);
+
+// GET_NEXT_LINE
 int			get_next_line(int fd, char **line);
 
 

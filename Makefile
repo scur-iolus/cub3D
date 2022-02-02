@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/01/31 17:13:33 by llalba           ###   ########.fr        #
+#    Updated: 2022/02/02 13:59:32 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,12 @@ SRC_LIST		= \
 				main.c \
 				gnl.c \
 				utils.c \
-				ft_split.c
+				ft_split.c \
+				get_config.c \
+				get_map.c \
+				free.c \
+				check_map.c \
+				init.c
 
 SRC				= $(SRC_LIST)
 
