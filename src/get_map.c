@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:04:19 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 15:06:24 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/03 11:26:57 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	get_map_size(t_data *data)
 	{
 		if (end == TRUE || (*line != '1' && *line != '0' && *line != ' ' \
 		&& *line != 'N' && *line != 'S' && *line != 'E' && *line != 'W'))
-			ft_error(data, "invalid map9\n");
+			ft_error(data, "invalid map\n");
 		width++;
 		line++;
 	}
@@ -69,10 +69,11 @@ void	set_map(t_data *data)
 		{
 			data->map.compass = c;
 			data->map.pos = i;
+			//data->map.content[i] = '0'; FIXME
 		}
 		else if (data->map.pos && (c == 'N' || c == 'S'|| c == 'E' || c == 'W'))
-			ft_error(data, "invalid map12\n");
+			ft_error(data, "invalid map\n");
 	}
 	if (!data->map.pos)
-		ft_error(data, "invalid map13\n");
+		ft_error(data, "invalid map\n");
 }

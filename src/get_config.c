@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:42 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 15:46:50 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 17:36:42 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	get_coord_len(t_data *data, char *str)
 	while (str[j])
 	{
 		if (str[j] != ' ')
-			ft_error(data, "2invalid map\n");
+			ft_error(data, "invalid map\n");
 		j++;
 	}
 	return (i);
@@ -59,7 +59,7 @@ int	get_coord(t_data *data, char *coord, char **s)
 		return (1);
 	}
 	else if (!ft_cmp(coord, line) && *s)
-		ft_error(data, "invalid map1\n");
+		ft_error(data, "invalid map\n");
 	return (0);
 }
 
@@ -83,7 +83,7 @@ int	get_colors(t_data *data, char c, t_color *color)
 		return (SUCCESS);
 	}
 	else if (line[0] == c && color->not_yet)
-		ft_error(data, "6invalid map\n");
+		ft_error(data, "invalid map\n");
 	return (SUCCESS);
 }
 
@@ -92,19 +92,21 @@ void	format_color(t_data *data, t_color *color)
 	char	**color_nb;
 
 	if (!(data->color_str[0]) || count_comma(data->color_str) != 2)
-		ft_error(data, "3invalid map\n");
+		ft_error(data, "invalid map\n");
 	color_nb = ft_split(data->color_str, ',');
 	if (!color_nb)
 		ft_error(data, "malloc failed\n");
 	if (!(color_nb[0] && color_nb[1] && color_nb[2] && !color_nb[3]))
 	{
 		ft_free_split(color_nb);
-		ft_error(data, "4invalid map\n");
+		ft_error(data, "invalid map\n");
 	}
 	color->r = ft_atoi(color_nb[0]);
 	color->g = ft_atoi(color_nb[1]);
 	color->b = ft_atoi(color_nb[2]);
 	ft_free_split(color_nb);
 	if (color->r == -1 || color->g == -1 || color->b == -1)
-		ft_error(data, "5invalid map\n");
+		ft_error(data, "invalid map\n");
+	if (color->r > 255 || color->g > 255 || color->b > 255)
+		ft_error(data, "invalid map\n");
 }

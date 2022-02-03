@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:59:36 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 15:00:25 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/03 11:43:09 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static t_bool	check_line(t_data *data, int i, char *content)
 	int	j;
 
 	j = i - 1;
+	if (i == (i / data->map.width) * data->map.width || \
+		i == (i / data->map.width + 1) * data->map.width)
+		return (FALSE);
 	while (j >= (i / data->map.width) * data->map.width)
 	{
 		if (content[j] == '1')
@@ -27,14 +30,13 @@ static t_bool	check_line(t_data *data, int i, char *content)
 	}
 	if (j == (i / data->map.width) * data->map.width && content[j] != '1')
 		return (FALSE);
-	j = i + 1;
-	while (j < (i / data->map.width + 1) * data->map.width)
+	j = i;
+	while (++j < (i / data->map.width + 1) * data->map.width)
 	{
 		if (content[j] == '1')
 			return (TRUE);
 		if (content[j] == ' ' || content[j] == '\0')
 			return (FALSE);
-		j++;
 	}
 	return (FALSE);
 }
@@ -103,6 +105,6 @@ void	check_frame(t_data *data)
 		if (!check_line(data, i, data->map.content) || \
 			!check_column_up(data, i, data->map.content) || \
 			!check_column_down(data, i, data->map.content))
-			ft_error(data, "invalid map13\n");
+			ft_error(data, "invalid map\n");
 	}
 }

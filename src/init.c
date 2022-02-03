@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:58:24 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 13:26:47 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/03 14:24:40 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	init_data(t_data *data)
 	data->color_str = NULL;
 	init_color(data);
 	data->line = NULL;
+	data->line_start = NULL;
 	data->state = 0;
 	data->map_start = 0;
 	data->ready = 0;

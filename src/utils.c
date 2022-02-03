@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 16:37:18 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/02 17:29:07 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(t_data *data, char *str)
 {
-	(void)write(2, "Error: \n", 8);
+	(void)write(2, "Error:\n", 7);
 	(void)write(2, str, ft_strlen(str));
 	if (data)
 		free_data(data);

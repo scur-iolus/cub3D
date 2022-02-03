@@ -42,6 +42,8 @@ obj/
 # OS X
 .DS_Store
 
+error.txt
+piupiu
 mlx_linux/*.c
 cub3D
 valgrind-trace.txt

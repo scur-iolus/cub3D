@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 16:31:54 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/03 11:06:59 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_data
 	t_color		f;
 	t_color		c;
 	char		*line;
+	char		*line_start;
 	int			state;
 	int			map_start;
 	int			ready;

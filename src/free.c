@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 15:48:48 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/03 14:25:08 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	free_data(t_data *data)
 		free(data->ea);
 	if (data->color_str)
 		free(data->color_str);
-	if (data->line)
-		free(data->line);
+	if (data->line_start)
+		free(data->line_start);
 }
 
 void	ft_free_split(char **ptr)
