@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/03 14:21:26 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 15:12:34 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,6 @@ void	ft_parsing(t_data *data)
 		get_map_size(data);
 		data->state++;
 	}
-}
-
-int	open_file(t_data *data, char *map)
-{
-	int		fd;
-
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
-		ft_error(data, "open failed\n");
-	return (fd);
-}
-
-int	close_file(t_data *data, int fd)
-{
-	int		ret;
-
-	ret = close(fd);
-	if (ret)
-		ft_error(data, "close failed\n");
 }
 
 int	load_map(t_data *data, char *map)
@@ -87,6 +68,9 @@ int	main(int ac, char **av)
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
+	char	*relative_path = "./test.xpm";
+	int		img_width;
+	int		img_height;
 
 	init_data(&data);
 	if (ac != 2)
@@ -110,8 +94,10 @@ int	main(int ac, char **av)
 	}
 	// printf("%d %c\n", data.map.pos, data.map.compass);
 	// FIXME
-	//mlx = mlx_init();
-	//mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	//mlx_loop(mlx);
+	// mlx = mlx_init();
+	// mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
+	// img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
+	// mlx_put_image_to_window(mlx, mlx_win, img, 200, 200);
+	// mlx_loop(mlx);
 	return (0);
 }

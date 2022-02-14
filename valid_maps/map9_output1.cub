@@ -13,13 +13,13 @@ C 225,30,0
 
 
 
-SO ./path_to_the_south_texture
-EA ./path_to_the_east_texture
+SO ./textures/so.xpm
+EA ./textures/ea.xpm
 
 
-WE ./path_to_the_west_texture
+WE ./textures/we.xpm
 
-NO ./path_to_the_north_texture
+NO ./textures/no.xpm
 
 
 

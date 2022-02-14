@@ -1,7 +1,7 @@
-EA ./textures/stone.xpm
-SO ./textures/redbrick.xpm
-      WE ./textures/wood.xpm
-     NO ./textures/mossy.xpm
+EA ./textures/ea.xpm
+SO ./textures/so.xpm
+      WE ./textures/we.xpm
+     NO ./textures/no.xpm
 C 0,128,128
 F 155,0,255
 

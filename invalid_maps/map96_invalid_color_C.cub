@@ -1,8 +1,8 @@
-NO ./textures/bluestone.xpm
+NO ./textures/no.xpm
 
-SO ./textures/colorstone.xpm
-WE ./textures/greystone.xpm
-EA        ./textures/redbrick.xpm
+SO ./textures/so.xpm
+WE ./textures/we.xpm
+EA        ./textures/ea.xpm
 
 
 C 124,    e25, 12

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/03 11:06:59 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 14:49:38 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void		skip_spaces(char **line);
 t_bool		is_not_in_set(t_data *data);
 char		*ft_cpy(void *dst, const void *src, int n);
 int			count_comma(char *color_str);
+int			open_file(t_data *data, char *map);
+void		close_file(t_data *data, int fd);
 
 // GET_CONFIG
 size_t		get_coord_len(t_data *data, char *str);

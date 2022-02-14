@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 17:29:07 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 14:53:16 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,23 @@ t_bool	is_not_in_set(t_data *data)
 		&& data->line[0] != 0)
 		return (TRUE);
 	return (FALSE);
+}
+
+int	open_file(t_data *data, char *map)
+{
+	int		fd;
+
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+		ft_error(data, "invalid map\n");
+	return (fd);
+}
+
+void	close_file(t_data *data, int fd)
+{
+	int		ret;
+
+	ret = close(fd);
+	if (ret)
+		ft_error(data, "close failed\n");
 }

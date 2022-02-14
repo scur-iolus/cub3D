@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:04:19 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/03 11:26:57 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 14:51:09 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,20 @@ void	get_map_content(t_data *data)
 	current++;
 }
 
+void	check_path(t_data *data)
+{
+	int	fd;
+
+	fd = open_file(data, data->no);
+	close_file(data, fd);
+	fd = open_file(data, data->so);
+	close_file(data, fd);
+	fd = open_file(data, data->ea);
+	close_file(data, fd);
+	fd = open_file(data, data->we);
+	close_file(data, fd);
+}
+
 void	set_map(t_data *data)
 {
 	int		i;
@@ -76,4 +90,5 @@ void	set_map(t_data *data)
 	}
 	if (!data->map.pos)
 		ft_error(data, "invalid map\n");
+	check_path(data);
 }

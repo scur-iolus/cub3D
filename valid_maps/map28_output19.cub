@@ -1,10 +1,10 @@
 F 94, 93, 91
 C 1, 12, 36
 
-                   NO texture/purplestone.xpm
-SO texture/wall_3.xpm
-EA texture/eagle.xpm
-WE texture/wood.xpm
+                   NO ./textures/no.xpm
+SO ./textures/so.xpm
+EA ./textures/ea.xpm
+WE ./textures/we.xpm
 
 111111111111111111
 1100011111111111111111111
