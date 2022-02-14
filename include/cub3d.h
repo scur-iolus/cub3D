@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 14:49:38 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 17:17:05 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,63 @@
 # define FALSE				0
 # define FAIL				1
 # define SUCCESS			0
+# define WIN_W				1920
+# define WIN_H				1080
 
 typedef char	t_bool;
 
 typedef struct s_map
 {
-	char	*content;
-	int		width;
-	int		height;
-	int		pos;
-	char	compass;
-}				t_map;
+	char			*content;
+	int				width;
+	int				height;
+	int				pos;
+	char			compass;
+}					t_map;
+
 typedef struct s_color
 {
-	t_bool		not_yet;
-	int			r;
-	int			g;
-	int			b;
-}				t_color;
+	t_bool			not_yet;
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
+
+typedef struct s_img
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_mlx
+{
+	void			*mlx;
+	void			*mlx_win;
+	// void			*img;
+	int				img_w;
+	int				img_h;
+	struct s_img	img;
+}					t_mlx;
+
 typedef struct s_data
 {
-	t_map		map;
-	char		*no;
-	char		*so;
-	char		*we;
-	char		*ea;
-	char		*color_str;
-	t_color		f;
-	t_color		c;
-	char		*line;
-	char		*line_start;
-	int			state;
-	int			map_start;
-	int			ready;
-
-}				t_data;
+	t_map			map;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	char			*color_str;
+	t_color			f;
+	t_color			c;
+	char			*line;
+	char			*line_start;
+	int				state;
+	int				map_start;
+	struct s_mlx	mlx;
+}					t_data;
 
 // INIT
 void		init_data(t_data *data);

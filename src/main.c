@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 15:12:34 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/14 17:31:40 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,42 +62,59 @@ int	load_map(t_data *data, char *map)
 	return (SUCCESS);
 }
 
+static void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+	int		i;
+
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		else
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		i -= 8;
+	}
+}
+
+void	launch_mlx(t_data *data)
+{
+	data->mlx.mlx = mlx_init();
+	if (!data->mlx.mlx)
+		ft_error(data, "could not init MLX\n");
+	data->mlx.mlx_win = mlx_new_window(data->mlx.mlx, WIN_W, WIN_H, "cub3D");
+	if (!data->mlx.mlx_win)
+		ft_error(data, "could not create a new window\n");
+	data->mlx.img.mlx_img = mlx_new_image(data->mlx.mlx, WIN_W, WIN_H);
+	if (!data->mlx.img.mlx_img)
+		ft_error(data, "could not create a new image\n");
+	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.mlx_img, \
+		&data->mlx.img.bpp, &data->mlx.img.line_len, &data->mlx.img.endian);
+	// data->mlx.img = mlx_xpm_file_to_image(data->mlx.mlx, \
+	// 	"./textures/no.xpm", &data->mlx.img_w, &data->mlx.img_h);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
+		data->mlx.img.mlx_img, 0, 0);
+	int i = 0;
+	while (i < WIN_W)
+	{
+		img_pix_put(&data->mlx.img, i, 100, 0x002593ff);
+		i++;
+	}
+	mlx_loop(data->mlx.mlx);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*relative_path = "./test.xpm";
-	int		img_width;
-	int		img_height;
 
 	init_data(&data);
 	if (ac != 2)
 		ft_error(&data, "wrong number of arguments\n");
 	load_map(&data, av[1]);
 	set_map(&data);
-	// FIXME ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	printf("EA %s\n", data.ea);
-	printf("NO %s\n", data.no);
-	printf("SO %s\n", data.so);
-	printf("WE %s\n", data.we);
-	printf("C %d,%d,%d\n", data.c.r, data.c.g, data.c.b);
-	printf("F %d,%d,%d\n", data.f.r, data.f.g, data.f.b);
-	// printf("w x h : %d x %d\n", data->map.width, data->map.height);
-	int	coucou = data.map.height;
-	int koukou = 0;
-	while (koukou < coucou)
-	{
-		printf("%.*s\n", data.map.width, data.map.content + koukou * data.map.width);
-		koukou++;
-	}
-	// printf("%d %c\n", data.map.pos, data.map.compass);
-	// FIXME
-	// mlx = mlx_init();
-	// mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	// img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
-	// mlx_put_image_to_window(mlx, mlx_win, img, 200, 200);
-	// mlx_loop(mlx);
+	launch_mlx(&data);
+	
 	return (0);
 }
