@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 17:31:40 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/15 15:56:00 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,87 @@ static void	img_pix_put(t_img *img, int x, int y, int color)
 	}
 }
 
+void	outline_mm(t_data *data)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (j < WIN_H)
+	{
+		i = 0;
+		while (i < WIN_W)
+		{
+			if ((i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MIN) \
+			|| (i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MAX) \
+			|| (i == MM_W_MIN && j > MM_H_MIN && j < MM_H_MAX) \
+			|| (i == MM_W_MAX && j > MM_H_MIN && j < MM_H_MAX))
+				img_pix_put(&data->mlx.img, i, j, 0x00a3e4d7); 
+			i++;
+		}
+		j++;
+	}
+}
+
+char	pixel_to_char(t_data *data, int x, int y)
+{
+	int	x_player;
+	int	y_player;
+	int	diff_x;
+	int	diff_y;
+	int	pp;
+
+	pp = data->map.pos;
+	x_player = (MM_W_MAX - MM_W_MIN) / 2 + MM_W_MIN;
+	y_player = (MM_H_MAX - MM_H_MIN) / 2 + MM_H_MIN;
+	diff_x = (x - x_player) / data->map.block_w;
+	if (diff_x < 0 && diff_x < -(pp % data->map.width))
+		return ('0');
+	if (diff_x > 0 && diff_x + (pp % data->map.width) >= data->map.width)
+		return ('0');
+	diff_y = (y - y_player) / data->map.block_h * data->map.width;
+	if (diff_x == 0 && diff_y == 0)
+		return ('P');
+	if (pp + diff_x + diff_y < 0 || \
+	pp + diff_x + diff_y >= data->map.width * data->map.height)
+		return ('0');
+	return (data->map.content[pp + diff_x + diff_y]);
+}
+
+void	design_mm(t_data *data)
+{ 
+	int			i;
+	int			j;
+	char		c;
+
+	data->map.block_w = (MM_W_MAX - MM_W_MIN) / 25;
+	data->map.block_h = (MM_H_MAX - MM_H_MIN) / 17;
+	j = MM_H_MIN + 1;
+	printf("🐹 %d %d \n", data->map.block_w, data->map.block_h); //FIXME
+	while (j < MM_H_MAX - 1)
+	{
+		i = MM_W_MIN + 1;
+		while (i < MM_W_MAX - 1)
+		{
+			// if ((i - MM_W_MIN) % data->map.block_w == 0 \
+			// && (j - MM_H_MIN) % data->map.block_h == 0)
+			c = pixel_to_char(data, i, j);
+			if (c == 'P')
+				img_pix_put(&data->mlx.img, i, j, 0x00ff5733);
+			else if (c == '1')
+				img_pix_put(&data->mlx.img, i, j, 0x00a3e4d7); 
+			i++;
+		}
+		j++;
+	}
+}
+
+void	mini_map(t_data *data)
+{
+	outline_mm(data);
+	design_mm(data);
+}
+
 void	launch_mlx(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
@@ -94,14 +175,9 @@ void	launch_mlx(t_data *data)
 		&data->mlx.img.bpp, &data->mlx.img.line_len, &data->mlx.img.endian);
 	// data->mlx.img = mlx_xpm_file_to_image(data->mlx.mlx, \
 	// 	"./textures/no.xpm", &data->mlx.img_w, &data->mlx.img_h);
+	mini_map(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
 		data->mlx.img.mlx_img, 0, 0);
-	int i = 0;
-	while (i < WIN_W)
-	{
-		img_pix_put(&data->mlx.img, i, 100, 0x002593ff);
-		i++;
-	}
 	mlx_loop(data->mlx.mlx);
 }
 

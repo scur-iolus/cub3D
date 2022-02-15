@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:58:24 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 17:23:54 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/15 14:09:04 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	init_data(t_data *data)
 	data->map.width = 0;
 	data->map.height = 0;
 	data->map.pos = 0;
+	data->map.block_w = 0;
+	data->map.block_h = 0;
 	data->map.compass = 0;
 	data->no = NULL;
 	data->so = NULL;

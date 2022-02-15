@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 17:17:05 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/15 14:07:07 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define SUCCESS			0
 # define WIN_W				1920
 # define WIN_H				1080
+# define MM_W_MIN			30
+# define MM_W_MAX			400
+# define MM_H_MIN			800
+# define MM_H_MAX			1050
 
 typedef char	t_bool;
 
@@ -41,6 +45,8 @@ typedef struct s_map
 	int				width;
 	int				height;
 	int				pos;
+	int				block_w;
+	int				block_h;
 	char			compass;
 }					t_map;
 
