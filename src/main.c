@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 15:05:29 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/16 16:15:01 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void	color_block(t_data *data, int x, int y, int color)
 		j = 0;
 		while (j < data->map.block_h)
 		{
-			img_pix_put(&data->mlx.img, x + i, y + j, 0x00a3e4d7);
+			img_pix_put(&data->mlx.img, x + i, y + j, color);
 			j++;
 		}
 		i++;
@@ -189,6 +189,8 @@ void	design_mm(t_data *data)
 			c = pixel_to_char(data, i, j);
 			if (c == '1')
 				color_block(data, i, j, 0x00a3e4d7);
+			else
+				color_block(data, i, j, 0x00000000);
 			i += data->map.block_w;
 		}
 		j += data->map.block_h;
@@ -200,6 +202,67 @@ void	mini_map(t_data *data)
 	design_mm(data);
 	outline_mm(data);
 	draw_player(data);
+}
+
+void	go_up(t_data *data)
+{
+	int	next_pos;
+
+	next_pos = data->map.pos - data->map.width;
+	if (next_pos >= 0 && next_pos < data->map.width * data->map.height \
+		&& data->map.content[next_pos] == '0')
+		data->map.pos = next_pos;
+}
+
+void	go_left(t_data *data)
+{
+	int	next_pos;
+
+	next_pos = data->map.pos - 1;
+	if (next_pos >= 0 && next_pos < data->map.width * data->map.height \
+		&& data->map.content[next_pos] == '0')
+		data->map.pos = next_pos;
+}
+
+void	go_right(t_data *data)
+{
+	int	next_pos;
+
+	next_pos = data->map.pos + 1;
+	if (next_pos >= 0 && next_pos < data->map.width * data->map.height \
+		&& data->map.content[next_pos] == '0')
+		data->map.pos = next_pos;
+}
+
+void	go_down(t_data *data)
+{
+	int	next_pos;
+
+	next_pos = data->map.pos + data->map.width;
+	if (next_pos >= 0 && next_pos < data->map.width * data->map.height \
+		&& data->map.content[next_pos] == '0')
+		data->map.pos = next_pos;
+}
+
+int	key_press(int key, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	if (key == W)
+		go_up(data);
+	else if (key == A)
+		go_left(data);
+	else if (key == D)
+		go_right(data);
+	else if (key == S)
+		go_down(data);
+	else if (key == ESC)
+		ft_end_exit(data);
+	mini_map(data);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
+		data->mlx.img.mlx_img, 0, 0);
+	return (0);
 }
 
 void	launch_mlx(t_data *data)
@@ -220,6 +283,8 @@ void	launch_mlx(t_data *data)
 	mini_map(data);
 	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
 		data->mlx.img.mlx_img, 0, 0);
+	mlx_hook(data->mlx.mlx_win, 2, 1L << 0, key_press, data);
+	mlx_hook(data->mlx.mlx_win, 17, 0L, ft_end_exit, data);
 	mlx_loop(data->mlx.mlx);
 }
 

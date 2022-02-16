@@ -6,11 +6,18 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/03 14:25:08 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/16 16:06:12 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	ft_end_exit(void *data)
+{
+	free_data(data);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
 
 void	free_data(t_data *data)
 {

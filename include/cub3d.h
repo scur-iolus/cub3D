@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 15:07:31 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/16 16:05:54 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 # define MM_W_MAX			380
 # define MM_H_MIN			812
 # define MM_H_MAX			1050
+
+# define W					119
+# define S					115
+# define A					97
+# define D					100
+# define ESC				65307
 
 typedef char	t_bool;
 
@@ -116,6 +122,8 @@ char		*ft_cpy(void *dst, const void *src, int n);
 int			count_comma(char *color_str);
 int			open_file(t_data *data, char *map);
 void		close_file(t_data *data, int fd);
+int			ft_end_exit(void *data);
+
 
 // GET_CONFIG
 size_t		get_coord_len(t_data *data, char *str);
