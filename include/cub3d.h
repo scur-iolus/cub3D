@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 16:05:54 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/16 17:11:08 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@
 # define A					97
 # define D					100
 # define ESC				65307
+# define LEFT				65361
+# define RIGHT				65363
+# define MOUSE_LEFT			1
+# define MOUSE_RIGHT		3
+# define MOUSE_CENTRAL		2
+# define SCROLL_OUT			4
+# define SCROLL_IN			5
 
 typedef char	t_bool;
 
@@ -123,6 +130,8 @@ int			count_comma(char *color_str);
 int			open_file(t_data *data, char *map);
 void		close_file(t_data *data, int fd);
 int			ft_end_exit(void *data);
+void		img_pix_put(t_img *img, int x, int y, int color);
+char		pixel_to_char(t_data *data, int x, int y);
 
 
 // GET_CONFIG
@@ -145,5 +154,24 @@ int			get_next_line(int fd, char **line);
 
 // SPLIT
 char		**ft_split(char const *str, char c);
+
+//MOVE
+int			key_press(int key, void *param);
+void		move_down(t_data *data);
+void		move_right(t_data *data);
+void		move_left(t_data *data);
+void		move_up(t_data *data);
+
+//LOOK
+void		look_right(t_data *data);
+void		look_left(t_data *data);
+
+//MINI_MAP
+void		draw_player(t_data *data);
+void		outline_mm(t_data *data);
+void		color_block(t_data *data, int x, int y, int color);
+void		design_mm(t_data *data);
+void		mini_map(t_data *data);
+
 
 #endif

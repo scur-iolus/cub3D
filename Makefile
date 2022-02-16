@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/02/02 16:45:58 by llalba           ###   ########.fr        #
+#    Updated: 2022/02/16 16:53:44 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,10 @@ SRC_LIST		= \
 				free.c \
 				check_map.c \
 				str.c \
-				init.c
+				init.c \
+				mini_map.c \
+				move.c \
+				look.c 
 
 SRC				= $(SRC_LIST)
 
