@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/15 14:07:07 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/16 15:07:31 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
-# include "../mlx_linux/mlx.h"
+# include "mlx.h" // "../mlx_linux/mlx.h"
 
 # define ERROR				"Error\n"
 # define TRUE				1
@@ -33,8 +33,8 @@
 # define WIN_W				1920
 # define WIN_H				1080
 # define MM_W_MIN			30
-# define MM_W_MAX			400
-# define MM_H_MIN			800
+# define MM_W_MAX			380
+# define MM_H_MIN			812
 # define MM_H_MAX			1050
 
 typedef char	t_bool;
