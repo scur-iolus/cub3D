@@ -24,3 +24,23 @@ le plafond.
 🔸espaces entre les orientations et les PATH
 🔸espaces au sein même des codes couleurs RGB
 🔸espaces au sein même du contenu descriptif de la carte ("les espaces sont une partie valable de la carte")
+
+- tester des cartes invalides :
+🔸Le .cub est un directory
+🔸2 arguments mais un fichier lol.cub.c
+🔸Configurations avec des int plus grands que int max
+🔸F ou C avec une virgule en moins ou une virgule en trop
+🔸F ou C avec un int supérieur à int max : doit renvoyer une erreur
+🔸F ou C avec un chiffre supérieur à 255
+🔸Un identifiant mauvais (ex. E au lieu de EA)
+🔸Pas de joueur ou plusieurs joueurs
+
+RAYCASTING
+https://lodev.org/cgtutor/raycasting.html
+https://github.com/iciamyplant/Cub3d-Linux
+https://www.youtube.com/watch?v=js7HW65MmNw&list=PL0H9-oZl_QOHM34HvD3DiGmwmj5X7GvTW
+
+MINILIBX
+https://github.com/qst0/ft_libgfx
+https://gist.github.com/KokaKiwi/4052375
+https://github.com/keuhdall/images_example/blob/master/README.md
