@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/14 14:53:16 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 17:54:40 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,21 @@ void	close_file(t_data *data, int fd)
 	ret = close(fd);
 	if (ret)
 		ft_error(data, "close failed\n");
+}
+
+void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+	int		i;
+
+	i = img->bpp - 8;
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		else
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		i -= 8;
+	}
 }

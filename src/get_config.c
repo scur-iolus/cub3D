@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:42 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 17:36:42 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 10:38:51 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int	get_colors(t_data *data, char c, t_color *color)
 		line++;
 		skip_spaces(&(line));
 		len = get_color_len(line);
+		if (data->color_str)
+		{
+			free(data->color_str);
+			data->color_str = NULL;
+		}
 		data->color_str = (char *)ft_calloc(len + 1, sizeof(char));
 		if (!(data->color_str))
 			ft_error(data, "malloc failed\n");

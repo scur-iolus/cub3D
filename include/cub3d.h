@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 17:11:08 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 17:56:30 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define MOUSE_CENTRAL		2
 # define SCROLL_OUT			4
 # define SCROLL_IN			5
+# define PI					3.1415926535
+# define VIEW				1.15191730632
 
 typedef char	t_bool;
 
@@ -84,7 +86,6 @@ typedef struct s_mlx
 {
 	void			*mlx;
 	void			*mlx_win;
-	// void			*img;
 	int				img_w;
 	int				img_h;
 	struct s_img	img;
@@ -105,6 +106,22 @@ typedef struct s_data
 	int				state;
 	int				map_start;
 	struct s_mlx	mlx;
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	int				step_x;
+	int				step_y;
+	t_bool			hit;
 }					t_data;
 
 // INIT
@@ -129,7 +146,7 @@ char		*ft_cpy(void *dst, const void *src, int n);
 int			count_comma(char *color_str);
 int			open_file(t_data *data, char *map);
 void		close_file(t_data *data, int fd);
-int			ft_end_exit(void *data);
+int			free_n_exit(void *data);
 void		img_pix_put(t_img *img, int x, int y, int color);
 char		pixel_to_char(t_data *data, int x, int y);
 
@@ -173,5 +190,14 @@ void		color_block(t_data *data, int x, int y, int color);
 void		design_mm(t_data *data);
 void		mini_map(t_data *data);
 
+//SETTINGS
+void		set_dir(t_data *data);
+void		set_plane(t_data *data);
+void		set_delta(t_data *data);
+void		set_side_dist(t_data *data);
+void		set_pos_xy(t_data *data);
+
+//RAY_CASTING
+void		ray_casting(t_data *data);
 
 #endif

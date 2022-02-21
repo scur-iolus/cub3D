@@ -6,13 +6,13 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 16:06:12 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 10:24:52 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	ft_end_exit(void *data)
+int	free_n_exit(void *data)
 {
 	free_data(data);
 	exit(EXIT_SUCCESS);
@@ -35,6 +35,15 @@ void	free_data(t_data *data)
 		free(data->color_str);
 	if (data->line_start)
 		free(data->line_start);
+	if (data->line)
+		free(data->line);
+	if (data->mlx.img.mlx_img)
+		mlx_destroy_image(data->mlx.mlx, data->mlx.img.mlx_img);
+	if (data->mlx.mlx_win)
+		mlx_destroy_window(data->mlx.mlx, data->mlx.mlx_win);
+	if (data->mlx.mlx)
+		mlx_destroy_display(data->mlx.mlx);
+	free(data->mlx.mlx);
 }
 
 void	ft_free_split(char **ptr)

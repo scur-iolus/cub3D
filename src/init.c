@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:58:24 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/15 14:09:04 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 17:18:33 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,25 @@ static void	mlx_init_struct(t_data *data)
 	data->mlx.img.endian = 0;
 }
 
+void	init_vectors(t_data *data)
+{
+	data->pos_x = 0.;
+	data->pos_y = 0.;
+	data->dir_x = 0.;
+	data->dir_y = 0.;
+	data->plane_x = 0.;
+	data->plane_y = 0.;
+	data->camera_x = 0.;
+	data->ray_dir_x = 0.;
+	data->ray_dir_y = 0.;
+	data->side_dist_x = 0.;
+	data->side_dist_y = 0.;
+	data->delta_dist_x = 0.;
+	data->delta_dist_y = 0.;
+	data->step_x = 0;
+	data->step_y = 0;
+	data->hit = 0;
+}
 
 void	init_data(t_data *data)
 {
@@ -57,5 +76,6 @@ void	init_data(t_data *data)
 	data->line_start = NULL;
 	data->state = 0;
 	data->map_start = 0;
+	init_vectors(data);
 	mlx_init_struct(data);
 }

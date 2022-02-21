@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 16:58:40 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 17:55:14 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	load_map(t_data *data, char *map)
 	int		fd;
 	int		ret;
 
-	if (map_is_valid(map))
-		ft_error(data, "invalid map\n");
 	fd = open_file(data, map);
 	while (get_next_line(fd, &data->line))
 		ft_parsing(data);
@@ -60,23 +58,6 @@ int	load_map(t_data *data, char *map)
 	}
 	close_file(data, fd);
 	return (SUCCESS);
-}
-
-void	img_pix_put(t_img *img, int x, int y, int color)
-{
-	char	*pixel;
-	int		i;
-
-	i = img->bpp - 8;
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	while (i >= 0)
-	{
-		if (img->endian != 0)
-			*pixel++ = (color >> i) & 0xFF;
-		else
-			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
-		i -= 8;
-	}
 }
 
 char	pixel_to_char(t_data *data, int x, int y)
@@ -104,6 +85,7 @@ char	pixel_to_char(t_data *data, int x, int y)
 	return (data->map.content[pp + diff_x + diff_y]);
 }
 
+
 void	launch_mlx(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
@@ -120,8 +102,10 @@ void	launch_mlx(t_data *data)
 	// data->mlx.img = mlx_xpm_file_to_image(data->mlx.mlx, \
 	// 	"./textures/no.xpm", &data->mlx.img_w, &data->mlx.img_h);
 	mini_map(data);
+	set_pos_xy(data);
+	ray_casting(data);
 	mlx_hook(data->mlx.mlx_win, 2, 1L << 0, key_press, data);
-	mlx_hook(data->mlx.mlx_win, 17, 0L, ft_end_exit, data);
+	mlx_hook(data->mlx.mlx_win, 17, 0L, free_n_exit, data);
 	mlx_loop(data->mlx.mlx);
 }
 
@@ -132,6 +116,8 @@ int	main(int ac, char **av)
 	init_data(&data);
 	if (ac != 2)
 		ft_error(&data, "wrong number of arguments\n");
+	if (map_is_valid(av[1]))
+		ft_error(&data, "invalid map\n");
 	load_map(&data, av[1]);
 	set_map(&data);
 	launch_mlx(&data);

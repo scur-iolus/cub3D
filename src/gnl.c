@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/01/25 15:34:45 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/21 10:50:56 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,17 @@ static char	*ft_strjoin(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	length = ft_strlen(s1) + ft_strlen(s2);
-	dest = (char *)malloc(sizeof(char) * (length + 1));
+	dest = (char *)ft_calloc(length + 1, sizeof(char));
 	if (!dest)
+	{
+		clean_free(&s1);
 		return (NULL);
+	}
 	i = -1;
 	while (s1[++i])
 		dest[i] = s1[i];
 	while (*s2)
 		dest[i++] = *s2++;
-	dest[i] = '\0';
 	clean_free(&s1);
 	return (dest);
 }

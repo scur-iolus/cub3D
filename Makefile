@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/02/16 16:53:44 by llalba           ###   ########.fr        #
+#    Updated: 2022/02/21 17:56:58 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,8 @@ SRC_LIST		= \
 				init.c \
 				mini_map.c \
 				move.c \
+				ray_casting.c \
+				settings.c \
 				look.c 
 
 SRC				= $(SRC_LIST)
