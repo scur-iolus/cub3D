@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 17:23:01 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 17:55:45 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_bool	is_wall(t_data *data)
 {
 	int	block_num;
 
-	block_num = (data->map.height - 1 - data->pos_y - data->map_y) * \
-		data->map.width + data->map_x + data->pos_x;
+	block_num = (data->map.height - 1 - data->map_y) * \
+		data->map.width + data->map_x;
 	if (data->map.content[block_num] != '1')
 		return (FALSE);
 	if (data->side_dist_x < data->side_dist_y)
@@ -40,6 +40,9 @@ static void	check_hit(t_data *data)
 	int	i;
 
 	i = -1;
+	// MARQUE-PAGE
+	printf("💥 %lf \n", data->side_dist_x); // FIXME
+	printf("💥 %lf \n", data->side_dist_y); // FIXME
 	while (++i < 100000)
 	{
 		if (data->side_dist_x < data->side_dist_y)
@@ -106,14 +109,27 @@ void	ray_casting(t_data *data)
 	set_plane(data);
 	while (i < WIN_W)
 	{
-		data->hit = 0;
-		data->camera_x = 2. * (double)i / (double)WIN_W - 1;
-		data->ray_dir_x = data->dir_x + data->plane_x * data->camera_x;
-		data->ray_dir_y = data->dir_y + data->plane_y * data->camera_x;
-		set_delta(data);
-		set_side_dist(data);
-		check_hit(data);
-		wall_builder(data, i);
+		if (i == 960) // FIXME
+		{
+			data->hit = 0;
+			data->camera_x = 2. * (double)i / (double)WIN_W - 1;
+			data->ray_dir_x = data->dir_x + data->plane_x * data->camera_x;
+			data->ray_dir_y = data->dir_y + data->plane_y * data->camera_x;
+			set_delta(data);
+			set_side_dist(data);
+			check_hit(data);
+			if (i == 300) // FIXME un rayon à gauche
+				printf("1) 🎪 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+			if (i == 600) // FIXME un rayon à gauche
+				printf("1) 🌋 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+			if (i == 960) // FIXME rayon du milieu
+				printf("1) 🧱 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+			if (i == 1320) // FIXME un rayon à droite
+				printf("1) 💒 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+			if (i == 1620) // FIXME un rayon à droite
+				printf("1) 🌉 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+			wall_builder(data, i);
+		}
 		i++;
 	}
 }

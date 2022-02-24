@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:52:35 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 12:03:33 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 17:40:04 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	set_delta(t_data *data)
 
 void	set_side_dist(t_data *data)
 {
-	data->map_x = data->pos_x;
-	data->map_y = data->pos_y;
+	data->map_x = (int)data->pos_x;
+	data->map_y = (int)data->pos_y;
 	if (data->ray_dir_x < 0)
 	{
 		data->step_x = -1;
@@ -102,7 +102,7 @@ void	set_side_dist(t_data *data)
 
 void	set_pos_xy(t_data *data)
 {
-	data->pos_x = data->map.pos % data->map.width;
+	data->pos_x = data->map.pos % data->map.width + 0.5;
 	data->pos_y = data->map.pos - data->pos_x;
-	data->pos_y = data->map.height - 1 - data->pos_y / data->map.width;
+	data->pos_y = data->map.height - 1 - data->pos_y / data->map.width + 0.5;
 }
