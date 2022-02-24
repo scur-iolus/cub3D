@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 17:56:30 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:40:02 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,39 @@ typedef struct s_mlx
 	struct s_img	img;
 }					t_mlx;
 
+/*
+** no = path de la texture NO
+** so = path de la texture SO
+** we = path de la texture WE
+** ea = path de la texture EA
+** color_str = contient successivement F et C sous forme de string
+** f = couleur au format RGB
+** c = couleur au format RGB
+** line = issu de GNL, attention on modifie le pointeur
+** line_start = début de line
+** state = va de 0 à 6, à 6 toute la config (hors map) est déjà chargé
+** map_start = numéro de la ligne où la map en elle-même commence
+** pos_x = x de la position du joueur avec x = 0 en bas à gauche
+** pos_y = y de la position du joueur avec y = 0 en bas à gauche
+** dir_x = x de la direction vers laquelle est tourné le joueur
+** dir_y = y de la direction vers laquelle est tourné le joueur
+** plane_x = x du plan de la caméra
+** plane_y = y du plan de la caméra
+** camera_x = de -1 à 1, représente le n-ième rayon, 0 le rayon "tout droit"
+** ray_dir_x = coordonnée x de camera_x
+** ray_dir_y = coordonnée x de camera_y
+** side_dist_x = distance jusqu'à une ligne verticale donnée du quadrillage
+** side_dist_y = distance jusqu'à une ligne horizontale donnée du quadrillage
+** delta_dist_x = longueur du segment entre 2 lignes verticales du quadrillage 
+** delta_dist_y = longueur du segment entre 2 lignes horizontales du quadrillage
+** step_x = vaut -1 ou 1, projection du rayon actuel sur l'axe x
+** step_y = vaut -1 ou 1, projection du rayon actuel sur l'axe y
+** map_x = int de pos_x (arrondi vers zéro)
+** map_y = int de pos_y (arrondi vers zéro)
+** hit = vaut 0 (pas de mur touché), N, S, E ou W (mur touché)
+** line_height = hauteur de la ligne de pixels à colorier pour rendre le mur
+*/
+
 typedef struct s_data
 {
 	t_map			map;
@@ -121,7 +154,10 @@ typedef struct s_data
 	double			delta_dist_y;
 	int				step_x;
 	int				step_y;
-	t_bool			hit;
+	int				map_x;
+	int				map_y;
+	char			hit;
+	double			line_height;
 }					t_data;
 
 // INIT
@@ -174,10 +210,10 @@ char		**ft_split(char const *str, char c);
 
 //MOVE
 int			key_press(int key, void *param);
-void		move_down(t_data *data);
+void		step_backwards(t_data *data);
 void		move_right(t_data *data);
 void		move_left(t_data *data);
-void		move_up(t_data *data);
+void		step_forward(t_data *data);
 
 //LOOK
 void		look_right(t_data *data);

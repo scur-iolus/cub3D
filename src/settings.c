@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:52:35 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 17:55:23 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 12:03:33 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,30 +74,29 @@ void	set_delta(t_data *data)
 
 void	set_side_dist(t_data *data)
 {
-	int	map_x;
-	int	map_y;
-
-	map_x = data->pos_x;
-	map_y = data->pos_y;
+	data->map_x = data->pos_x;
+	data->map_y = data->pos_y;
 	if (data->ray_dir_x < 0)
 	{
 		data->step_x = -1;
-		data->side_dist_x = (data->pos_x - map_x) * data->delta_dist_x;
+		data->side_dist_x = (data->pos_x - data->map_x) * data->delta_dist_x;
 	}
 	else
 	{
 		data->step_x = 1;
-		data->side_dist_x = (map_x + 1. - data->pos_x) * data->delta_dist_x;
+		data->side_dist_x = (data->map_x + 1. - data->pos_x) \
+			* data->delta_dist_x;
 	}
 	if (data->ray_dir_y < 0)
 	{
 		data->step_y = -1;
-		data->side_dist_y = (data->pos_x - map_y) * data->delta_dist_y;
+		data->side_dist_y = (data->pos_x - data->map_y) * data->delta_dist_y;
 	}
 	else
 	{
 		data->step_y = 1;
-		data->side_dist_y = (map_y + 1. - data->pos_y) * data->delta_dist_y;
+		data->side_dist_y = (data->map_y + 1. - data->pos_y) \
+			* data->delta_dist_y;
 	}
 }
 

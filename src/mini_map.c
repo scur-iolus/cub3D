@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:50:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/16 16:53:07 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:33:55 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,21 @@ void	outline_mm(t_data *data)
 	int	i;
 	int	j;
 
-	j = 0;
-	while (j < WIN_H)
+	j = MM_H_MIN;
+	while (j < MM_H_MAX)
 	{
-		i = 0;
-		while (i < WIN_W)
+		i = MM_W_MIN;
+		while (i < MM_W_MAX)
 		{
 			if ((i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MIN) \
 			|| (i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MAX) \
 			|| (i == MM_W_MIN && j > MM_H_MIN && j < MM_H_MAX) \
 			|| (i == MM_W_MAX && j > MM_H_MIN && j < MM_H_MAX))
 				img_pix_put(&data->mlx.img, i, j, 0x00a3e4d7);
-			i++;
+			if (j != MM_H_MIN && j != MM_H_MAX && i == MM_W_MIN)
+				i = MM_W_MAX;
+			else
+				i++;
 		}
 		j++;
 	}
@@ -66,9 +69,13 @@ void	color_block(t_data *data, int x, int y, int color)
 	int	j;
 
 	i = 0;
+	if (x == MM_W_MIN)
+		i = 1;
 	while (i < data->map.block_w)
 	{
 		j = 0;
+		if (y == MM_H_MIN)
+			j = 1;
 		while (j < data->map.block_h)
 		{
 			img_pix_put(&data->mlx.img, x + i, y + j, color);
@@ -87,7 +94,6 @@ void	design_mm(t_data *data)
 
 	data->map.block_w = (MM_W_MAX - MM_W_MIN) / 25;
 	data->map.block_h = (MM_H_MAX - MM_H_MIN) / 17;
-
 	j = MM_H_MIN;
 	while (j < MM_H_MAX)
 	{
@@ -110,6 +116,4 @@ void	mini_map(t_data *data)
 	design_mm(data);
 	outline_mm(data);
 	draw_player(data);
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
-		data->mlx.img.mlx_img, 0, 0);
 }

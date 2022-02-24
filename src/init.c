@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:58:24 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 17:18:33 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 14:16:39 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,11 @@ void	init_vectors(t_data *data)
 	data->side_dist_y = 0.;
 	data->delta_dist_x = 0.;
 	data->delta_dist_y = 0.;
+	data->line_height = 0;
 	data->step_x = 0;
 	data->step_y = 0;
+	data->map_x = 0;
+	data->map_y = 0;
 	data->hit = 0;
 }
 

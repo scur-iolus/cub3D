@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 17:55:14 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/24 16:34:54 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	pixel_to_char(t_data *data, int x, int y)
 	return (data->map.content[pp + diff_x + diff_y]);
 }
 
-
 void	launch_mlx(t_data *data)
 {
 	data->mlx.mlx = mlx_init();
@@ -101,11 +100,12 @@ void	launch_mlx(t_data *data)
 		&data->mlx.img.bpp, &data->mlx.img.line_len, &data->mlx.img.endian);
 	// data->mlx.img = mlx_xpm_file_to_image(data->mlx.mlx, \
 	// 	"./textures/no.xpm", &data->mlx.img_w, &data->mlx.img_h);
-	mini_map(data);
-	set_pos_xy(data);
 	ray_casting(data);
+	mini_map(data);
 	mlx_hook(data->mlx.mlx_win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->mlx.mlx_win, 17, 0L, free_n_exit, data);
+	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
+		data->mlx.img.mlx_img, 0, 0);
 	mlx_loop(data->mlx.mlx);
 }
 
