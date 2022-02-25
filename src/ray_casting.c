@@ -6,13 +6,13 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/25 16:37:38 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/25 18:03:26 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-t_bool	is_wall(t_data *data)
+static t_bool	is_wall(t_data *data)
 {
 	int	block_num;
 
@@ -35,27 +35,31 @@ t_bool	is_wall(t_data *data)
 	return (TRUE);
 }
 
-static void	check_hit(t_data *data)
+static void	check_hit(t_data *data, int n)
 {
 	int	i;
+	int	block_num;
 
+	i = -1;
 	while (++i < 100000)
 	{
+		if (is_wall(data))
+			break ;
 		if (data->side_dist_x < data->side_dist_y)
 		{
-			data->side_dist_x += data->delta_dist_x;
 			data->map_x += data->step_x;
+			block_num = (data->map.height - 1 - data->map_y) * \
+			data->map.width + data->map_x;
+			if (data->map.content[block_num] != '1')
+				data->side_dist_x += data->delta_dist_x;
 		}
 		else
 		{
-			data->side_dist_y += data->delta_dist_y;
 			data->map_y += data->step_y;
-		}
-		if (is_wall(data))
-		{
-			data->side_dist_x -= data->delta_dist_x;
-			data->side_dist_y -= data->delta_dist_y;
-			break ;
+			block_num = (data->map.height - 1 - data->map_y) * \
+			data->map.width + data->map_x;
+			if (data->map.content[block_num] != '1')
+				data->side_dist_y += data->delta_dist_y;
 		}
 	}
 }
@@ -86,14 +90,6 @@ void	wall_builder(t_data *data, int i)
 	int		draw_end;
 	double	wall_dist;
 
-	// if (data->hit == 'E' || data->hit == 'W')
-	// 	wall_dist = (data->side_dist_x - data->delta_dist_x);
-	// else
-	// 	wall_dist = (data->side_dist_y - data->delta_dist_y);
-	// if (wall_dist == 0.)
-	// 	return ; // ft_error(data, "something went wrong!\n");
-	if (i == 960) // FIXME
-		printf("🤯 side_dist_y : %lf\n", data->side_dist_y); // FIXME
 	if (data->hit == 'N' || data->hit == 'S')
 		wall_dist = data->side_dist_y;
 	else
@@ -120,9 +116,7 @@ void	ray_casting(t_data *data)
 		data->ray_dir_y = data->dir_y + data->plane_y * data->camera_x;
 		set_delta(data);
 		set_side_dist(data);
-		check_hit(data);
-		if (i == 959) // FIXME rayon du milieu
-			printf("🧱 side_dist_y : %lf, delta_dist_y : %lf, side_dist_x : %lf, delta_dist_x : %lf, step_x: %d, step_y: %d\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x, data->step_x, data->step_y); // FIXME
+		check_hit(data, i);
 		wall_builder(data, i);
 		i++;
 	}
