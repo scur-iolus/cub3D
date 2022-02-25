@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/25 12:45:25 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/25 16:37:38 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool	is_wall(t_data *data)
 		data->map.width + data->map_x;
 	if (data->map.content[block_num] != '1')
 		return (FALSE);
-	if (data->side_dist_x < data->side_dist_y)
+	if (data->side_dist_x > data->side_dist_y)
 	{
 		data->hit = 'S';
 		if (data->step_y > 0)
@@ -39,15 +39,8 @@ static void	check_hit(t_data *data)
 {
 	int	i;
 
-	if (data->side_dist_x < data->side_dist_y)
-		data->map_x += data->step_x;
-	else
-		data->map_y += data->step_y;
-	i = -1;
 	while (++i < 100000)
 	{
-		if (is_wall(data))
-			break ;
 		if (data->side_dist_x < data->side_dist_y)
 		{
 			data->side_dist_x += data->delta_dist_x;
@@ -57,6 +50,12 @@ static void	check_hit(t_data *data)
 		{
 			data->side_dist_y += data->delta_dist_y;
 			data->map_y += data->step_y;
+		}
+		if (is_wall(data))
+		{
+			data->side_dist_x -= data->delta_dist_x;
+			data->side_dist_y -= data->delta_dist_y;
+			break ;
 		}
 	}
 }
@@ -72,10 +71,10 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 			j = MM_H_MAX + 1;
 		if (j > draw_start && j < draw_end && \
 			(data->hit == 'N' || data->hit == 'S'))
-			img_pix_put(&data->mlx.img, i, j, 0x00ec5658);
+			img_pix_put(&data->mlx.img, i, j, 0x00FF00);
 		else if (j > draw_start && j < draw_end && \
 			(data->hit == 'E' || data->hit == 'W'))
-			img_pix_put(&data->mlx.img, i, j, 0x00f1888a);
+			img_pix_put(&data->mlx.img, i, j, 0xFF0000);
 		else
 			img_pix_put(&data->mlx.img, i, j, 0x00000000);
 	}
@@ -93,7 +92,9 @@ void	wall_builder(t_data *data, int i)
 	// 	wall_dist = (data->side_dist_y - data->delta_dist_y);
 	// if (wall_dist == 0.)
 	// 	return ; // ft_error(data, "something went wrong!\n");
-	if (data->hit == 'E' || data->hit == 'W')
+	if (i == 960) // FIXME
+		printf("🤯 side_dist_y : %lf\n", data->side_dist_y); // FIXME
+	if (data->hit == 'N' || data->hit == 'S')
 		wall_dist = data->side_dist_y;
 	else
 		wall_dist = data->side_dist_x;
@@ -120,16 +121,8 @@ void	ray_casting(t_data *data)
 		set_delta(data);
 		set_side_dist(data);
 		check_hit(data);
-		// if (i == 300) // FIXME un rayon à gauche
-		// 	printf("1) 🎪 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
-		// if (i == 600) // FIXME un rayon à gauche
-		// 	printf("1) 🌋 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
-		if (i == 960) // FIXME rayon du milieu
-			printf("1) 🧱 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
-		// if (i == 1320) // FIXME un rayon à droite
-		// 	printf("1) 💒 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
-		// if (i == 1620) // FIXME un rayon à droite
-		// 	printf("1) 🌉 %lf %lf %lf %lf\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x); // FIXME
+		if (i == 959) // FIXME rayon du milieu
+			printf("🧱 side_dist_y : %lf, delta_dist_y : %lf, side_dist_x : %lf, delta_dist_x : %lf, step_x: %d, step_y: %d\n", data->side_dist_y, data->delta_dist_y, data->side_dist_x, data->delta_dist_x, data->step_x, data->step_y); // FIXME
 		wall_builder(data, i);
 		i++;
 	}
