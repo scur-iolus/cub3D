@@ -1,6 +1,8 @@
 - La gestion des fenêtres doit être parfaite : gestion de la minimalisation, du passage
 d’une autre fenetre, etc.
 
+- Pas de newline final dans une map ?
+
 - Vous devez afficher des textures différentes (vous avez le choix) selon si les murs
 sont face nord, sud, est, ouest.
 

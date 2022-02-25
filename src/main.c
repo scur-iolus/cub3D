@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 16:34:54 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/25 15:10:53 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	ft_parsing(t_data *data)
 		get_map_size(data);
 		data->state++;
 	}
+	free(data->line_start);
+	data->line_start = NULL;
 }
 
 int	load_map(t_data *data, char *map)
@@ -44,6 +46,9 @@ int	load_map(t_data *data, char *map)
 	fd = open_file(data, map);
 	while (get_next_line(fd, &data->line))
 		ft_parsing(data);
+	free(data->line);
+	data->line_start = NULL;
+	data->line = NULL;
 	close_file(data, fd);
 	fd = open_file(data, map);
 	data->map.content = (char *)ft_calloc(data->map.width * data->map.height \
@@ -55,6 +60,8 @@ int	load_map(t_data *data, char *map)
 		data->line_start = data->line;
 		if ((data->map_start--) <= 0 && data->line[0])
 			get_map_content(data);
+		free(data->line_start);
+		data->line_start = NULL;
 	}
 	close_file(data, fd);
 	return (SUCCESS);

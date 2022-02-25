@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:50:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 16:33:55 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/25 14:33:35 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	outline_mm(t_data *data)
 	int	j;
 
 	j = MM_H_MIN;
-	while (j < MM_H_MAX)
+	while (j <= MM_H_MAX)
 	{
 		i = MM_W_MIN;
-		while (i < MM_W_MAX)
+		while (i <= MM_W_MAX)
 		{
-			if ((i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MIN) \
-			|| (i > MM_W_MIN && i < MM_W_MAX && j == MM_H_MAX) \
-			|| (i == MM_W_MIN && j > MM_H_MIN && j < MM_H_MAX) \
-			|| (i == MM_W_MAX && j > MM_H_MIN && j < MM_H_MAX))
+			if ((i >= MM_W_MIN && i <= MM_W_MAX && j == MM_H_MIN) \
+			|| (i >= MM_W_MIN && i <= MM_W_MAX && j == MM_H_MAX) \
+			|| (i == MM_W_MIN && j >= MM_H_MIN && j <= MM_H_MAX) \
+			|| (i == MM_W_MAX && j >= MM_H_MIN && j <= MM_H_MAX))
 				img_pix_put(&data->mlx.img, i, j, 0x00a3e4d7);
 			if (j != MM_H_MIN && j != MM_H_MAX && i == MM_W_MIN)
 				i = MM_W_MAX;

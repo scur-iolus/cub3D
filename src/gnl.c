@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 10:50:56 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/25 15:06:52 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ static char	*ft_strjoin(char *s1, char *s2)
 	return (dest);
 }
 
-static int	clean_and_return(char **string, int error)
+static int	clean_and_return(char **string, char **line, int error)
 {
+	clean_free(line);
 	clean_free(string);
 	return (error);
 }
@@ -73,14 +74,16 @@ int	get_next_line(int fd, char **line)
 	if (!buf)
 		return (-1);
 	*line = ft_calloc(1, sizeof(char));
-	if (!line || (read(fd, buf, 0) < 0))
-		return (clean_and_return(&buf, -1));
+	if (!line)
+		return (clean_and_return(&buf, 0, -1));
+	if (read(fd, buf, 0) < 0)
+		return (clean_and_return(&buf, line, -1));
 	ret = 1;
 	while (ret != 0 && buf[0] != '\n')
 	{
 		ret = read(fd, buf, 1);
 		if (ret < 0)
-			return (clean_and_return(&buf, -1));
+			return (clean_and_return(&buf, line, -1));
 		if (buf[0] == '\n' || buf[0] == 13)
 			continue ;
 		buf[ret] = 0;
