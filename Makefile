@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/02/21 17:56:58 by llalba           ###   ########.fr        #
+#    Updated: 2022/02/28 17:43:53 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME			= cub3D
 
 CC				= gcc
 
-FLAGS			= -Wall -Werror -Wextra
+FLAGS			= -Wall -Werror -Wextra -fsanitize=address
 
 MLX_FLAGS		= -Lmlx_linux -lmlx -lXext -lX11 -lm
 
@@ -64,7 +64,7 @@ $(NAME):		$(OBJ)
 				@$(call green," successfully created. ✅")
 				@/bin/echo -e "\n\n🚀 You're ready to go."
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c Makefile
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
 				@echo "🏗  Compiling $<..."
 				@$(CC) $(CC_FLAGS) -I $(HEADERS_DIR) -Imlx_linux -MMD -MP -c $< -o $@

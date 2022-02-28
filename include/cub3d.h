@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 16:40:02 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/28 17:37:09 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ typedef struct s_color
 typedef struct s_img
 {
 	void	*mlx_img;
-	char	*addr;
+	char	*ad;
 	int		bpp;
-	int		line_len;
+	int		len;
 	int		endian;
 }	t_img;
 
@@ -124,6 +124,16 @@ typedef struct s_mlx
 ** line_height = hauteur de la ligne de pixels à colorier pour rendre le mur
 */
 
+typedef struct s_text
+{
+	double			ray_pos;
+	int				h;
+	int				w;
+	double			step;
+	double			start;
+	struct s_img	img;
+}	t_text;
+
 typedef struct s_data
 {
 	t_map			map;
@@ -158,6 +168,10 @@ typedef struct s_data
 	int				map_y;
 	char			hit;
 	double			line_height;
+	struct s_text	n;
+	struct s_text	s;
+	struct s_text	e;
+	struct s_text	w;
 }					t_data;
 
 // INIT

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/25 18:03:26 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/28 17:49:08 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,29 @@ static void	check_hit(t_data *data, int n)
 	}
 }
 
+static int	get_color_pix(t_data *data, int i, int j)
+{
+	char	*p;
+	int		x;
+	int		y;
+
+	//data->n.img.ad[texy * texture[0].length / 4 + texx];
+	// ad + (y * img->len + x * (img->bpp / 8));
+	// printf("🛹 ca glisse\n");
+	// x = 0;
+	// y = 0;
+	// if (data->hit == 'N')
+	// 	p = data->n.img.ad + (y * data->n.img.len + x * (data->n.img.bpp / 8));
+	// else if (data->hit == 'S')
+	// 	p = data->s.img.ad + (y * data->s.img.len + x * (data->s.img.bpp / 8));
+	// else if (data->hit == 'E')
+	// 	p = data->e.img.ad + (y * data->e.img.len + x * (data->e.img.bpp / 8));
+	// else if (data->hit == 'W')
+	// 	p = data->w.img.ad + (y * data->w.img.len + x * (data->w.img.bpp / 8));
+	// printf("🛹 ca glisse toujours\n");
+	return (0x0000FF);
+}
+
 static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 {
 	int	j;
@@ -73,14 +96,18 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 	{
 		if (i >= MM_W_MIN && i <= MM_W_MAX && j >= MM_H_MIN && j <= MM_H_MAX)
 			j = MM_H_MAX + 1;
-		if (j > draw_start && j < draw_end && \
-			(data->hit == 'N' || data->hit == 'S'))
-			img_pix_put(&data->mlx.img, i, j, 0x00FF00);
-		else if (j > draw_start && j < draw_end && \
-			(data->hit == 'E' || data->hit == 'W'))
-			img_pix_put(&data->mlx.img, i, j, 0xFF0000);
-		else
-			img_pix_put(&data->mlx.img, i, j, 0x00000000);
+		if (j > draw_start && j < draw_end)
+			img_pix_put(&data->mlx.img, i, j, get_color_pix(data, i, j));
+		else if (j <= draw_start)
+		{
+			img_pix_put(&data->mlx.img, i, j, *(int *) \
+			(unsigned char [4]){data->f.b, data->f.g, data->f.r});
+		}
+		else if (j >= draw_end)
+		{
+			img_pix_put(&data->mlx.img, i, j, *(int *) \
+			(unsigned char [4]){data->c.b, data->c.g, data->c.r});
+		}
 	}
 }
 

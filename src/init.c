@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:58:24 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 14:16:39 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/28 17:40:48 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,24 @@ static void	mlx_init_struct(t_data *data)
 	data->mlx.img_h = 0;
 	data->mlx.img_w = 0;
 	data->mlx.img.mlx_img = NULL;
-	data->mlx.img.addr = NULL;
+	data->mlx.img.ad = NULL;
 	data->mlx.img.bpp = 0;
-	data->mlx.img.line_len = 0;
+	data->mlx.img.len = 0;
 	data->mlx.img.endian = 0;
+}
+
+void	init_textures(t_text *text)
+{
+	text->h = 0;
+	text->w = 0;
+	text->ray_pos = 0;
+	text->step = 0;
+	text->start = 0;
+	text->img.mlx_img = NULL;
+	text->img.ad = NULL;
+	text->img.bpp = 0;
+	text->img.len = 0;
+	text->img.endian = 0;
 }
 
 void	init_vectors(t_data *data)
@@ -81,4 +95,8 @@ void	init_data(t_data *data)
 	data->map_start = 0;
 	init_vectors(data);
 	mlx_init_struct(data);
+	init_textures(&data->n);
+	init_textures(&data->s);
+	init_textures(&data->e);
+	init_textures(&data->w);
 }

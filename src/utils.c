@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:52 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 17:54:40 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/28 17:38:56 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	img_pix_put(t_img *img, int x, int y, int color)
 	int		i;
 
 	i = img->bpp - 8;
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	pixel = img->ad + (y * img->len + x * (img->bpp / 8));
 	while (i >= 0)
 	{
 		if (img->endian != 0)

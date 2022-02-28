@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/21 10:24:52 by llalba           ###   ########.fr       */
+/*   Updated: 2022/02/28 12:12:21 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ int	free_n_exit(void *data)
 	free_data(data);
 	exit(EXIT_SUCCESS);
 	return (0);
+}
+
+void	free_texture(t_data *data)
+{
+	if (data->n.img.mlx_img)
+		mlx_destroy_image(data->mlx.mlx, data->n.img.mlx_img);
+	if (data->s.img.mlx_img)
+		mlx_destroy_image(data->mlx.mlx, data->s.img.mlx_img);
+	if (data->e.img.mlx_img)
+		mlx_destroy_image(data->mlx.mlx, data->e.img.mlx_img);
+	if (data->w.img.mlx_img)
+		mlx_destroy_image(data->mlx.mlx, data->w.img.mlx_img);
 }
 
 void	free_data(t_data *data)
@@ -37,6 +49,7 @@ void	free_data(t_data *data)
 		free(data->line_start);
 	if (data->line)
 		free(data->line);
+	free_texture(data);
 	if (data->mlx.img.mlx_img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img.mlx_img);
 	if (data->mlx.mlx_win)
