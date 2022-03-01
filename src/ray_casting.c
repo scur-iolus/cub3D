@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 17:52:30 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 23:10:31 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static t_bool	is_wall(t_data *data)
 {
-	int	block_num;
+	int		block_num;
+	double	tmp;
 
 	block_num = (data->map.height - 1 - data->map_y) * \
 		data->map.width + data->map_x;
@@ -25,12 +26,16 @@ static t_bool	is_wall(t_data *data)
 		data->hit = 'S';
 		if (data->step_y > 0)
 			data->hit = 'N';
+		data->ray_pos = modf(data->side_dist_y * data->ray_dir_x \
+			/ data->dir_y + 0.5, &tmp);
 	}
 	else
 	{
 		data->hit = 'W';
 		if (data->step_x > 0)
 			data->hit = 'E';
+		data->ray_pos = modf(data->side_dist_x * data->ray_dir_y \
+			/ data->dir_x + 0.5, &tmp);
 	}
 	return (TRUE);
 }
@@ -97,7 +102,7 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 			j = MM_H_MAX + 1;
 		if (j > draw_start && j < draw_end)
 		{
-			y = (j - draw_start) / draw_end;
+			y = ((double)j - (double)draw_start) / (double)draw_end;
 			img_pix_put(&data->mlx.img, i, j, get_color_pix(data, y));
 		}
 		else if (j <= draw_start)
@@ -146,6 +151,14 @@ void	ray_casting(t_data *data)
 		set_delta(data);
 		set_side_dist(data);
 		check_hit(data, i);
+		if (data->ray_pos < 0.)
+			data->ray_pos = 1. + data->ray_pos;
+		if (i == 0)
+			printf("🎄 %lf %lf %lf -> %lf\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
+		if (i == WIN_W / 2 - 1)
+			printf("🎄 %lf %lf %lf -> %lf\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
+		if (i == WIN_W - 1)
+			printf("🎄 %lf %lf %lf -> %lf\n\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
 		wall_builder(data, i);
 		i++;
 	}

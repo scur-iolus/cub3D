@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 17:26:09 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 23:13:29 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@
 # define MOUSE_CENTRAL		2
 # define SCROLL_OUT			4
 # define SCROLL_IN			5
-# define PI					3.1415926535
-# define VIEW				1.15191730632
+# define VIEW_W				0.66
 
 typedef char	t_bool;
 
@@ -114,7 +113,7 @@ typedef struct s_mlx
 ** ray_dir_y = coordonnée x de camera_y
 ** side_dist_x = distance jusqu'à une ligne verticale donnée du quadrillage
 ** side_dist_y = distance jusqu'à une ligne horizontale donnée du quadrillage
-** delta_dist_x = longueur du segment entre 2 lignes verticales du quadrillage 
+** delta_dist_x = longueur du segment entre 2 lignes verticales du quadrillage
 ** delta_dist_y = longueur du segment entre 2 lignes horizontales du quadrillage
 ** step_x = vaut -1 ou 1, projection du rayon actuel sur l'axe x
 ** step_y = vaut -1 ou 1, projection du rayon actuel sur l'axe y

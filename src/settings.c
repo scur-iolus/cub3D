@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:52:35 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/25 16:09:42 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 22:27:54 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,23 @@ void	set_plane(t_data *data)
 {
 	if (data->map.compass == 'N')
 	{
-		data->plane_x = 0.66;
+		data->plane_x = VIEW_W;
 		data->plane_y = 0.;
 	}
 	else if (data->map.compass == 'E')
 	{
 		data->plane_x = 0.;
-		data->plane_y = -0.66;
+		data->plane_y = -VIEW_W;
 	}
 	else if (data->map.compass == 'S')
 	{
-		data->plane_x = -0.66;
+		data->plane_x = -VIEW_W;
 		data->plane_y = 0.;
 	}
 	else
 	{
 		data->plane_x = 0;
-		data->plane_y = 0.66;
+		data->plane_y = VIEW_W;
 	}
 }
 
