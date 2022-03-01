@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/28 17:37:09 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:26:09 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <string.h>
-# include "mlx.h" // "../mlx_linux/mlx.h"
+# include "../mlx_linux/mlx.h"
 
 # define ERROR				"Error\n"
 # define TRUE				1
@@ -76,7 +76,7 @@ typedef struct s_color
 typedef struct s_img
 {
 	void	*mlx_img;
-	char	*ad;
+	void	*addr;
 	int		bpp;
 	int		len;
 	int		endian;
@@ -122,15 +122,13 @@ typedef struct s_mlx
 ** map_y = int de pos_y (arrondi vers zéro)
 ** hit = vaut 0 (pas de mur touché), N, S, E ou W (mur touché)
 ** line_height = hauteur de la ligne de pixels à colorier pour rendre le mur
+** ray_pos = position du rayon dans la texture
 */
 
 typedef struct s_text
 {
-	double			ray_pos;
 	int				h;
 	int				w;
-	double			step;
-	double			start;
 	struct s_img	img;
 }	t_text;
 
@@ -168,6 +166,7 @@ typedef struct s_data
 	int				map_y;
 	char			hit;
 	double			line_height;
+	double			ray_pos;
 	struct s_text	n;
 	struct s_text	s;
 	struct s_text	e;

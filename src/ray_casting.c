@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/28 17:49:08 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 16:25:37 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,35 @@ static void	check_hit(t_data *data, int n)
 	}
 }
 
-static int	get_color_pix(t_data *data, int i, int j)
+static int	get_color_pix(t_data *data, double y)
 {
 	char	*p;
-	int		x;
-	int		y;
+	t_text	*t;
+	int		pix_x;
+	int		pix_y;
 
-	//data->n.img.ad[texy * texture[0].length / 4 + texx];
+	if (data->hit == 'N')
+		t = &data->n;
+	else if (data->hit == 'S')
+		t = &data->s;
+	else if (data->hit == 'E')
+		t = &data->e;
+	else if (data->hit == 'W')
+		t = &data->w;
+	pix_y = 0; // FIXMEy * t->h;
+	pix_x = data->ray_pos * t->w;
+	//data->n.img.addr[texy * texture[0].length / 4 + texx];
 	// ad + (y * img->len + x * (img->bpp / 8));
 	// printf("🛹 ca glisse\n");
-	// x = 0;
-	// y = 0;
-	// if (data->hit == 'N')
-	// 	p = data->n.img.ad + (y * data->n.img.len + x * (data->n.img.bpp / 8));
-	// else if (data->hit == 'S')
-	// 	p = data->s.img.ad + (y * data->s.img.len + x * (data->s.img.bpp / 8));
-	// else if (data->hit == 'E')
-	// 	p = data->e.img.ad + (y * data->e.img.len + x * (data->e.img.bpp / 8));
-	// else if (data->hit == 'W')
-	// 	p = data->w.img.ad + (y * data->w.img.len + x * (data->w.img.bpp / 8));
-	// printf("🛹 ca glisse toujours\n");
-	return (0x0000FF);
+	p = t->img.addr;
+	// p = t->img.addr + (pix_y * t->img.len + pix_x * (t->img.bpp / 8));
+	return (*(int *)p);
 }
 
 static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 {
-	int	j;
+	int		j;
+	double	y;
 
 	j = -1;
 	while (++j < WIN_H)
@@ -97,7 +100,10 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 		if (i >= MM_W_MIN && i <= MM_W_MAX && j >= MM_H_MIN && j <= MM_H_MAX)
 			j = MM_H_MAX + 1;
 		if (j > draw_start && j < draw_end)
-			img_pix_put(&data->mlx.img, i, j, get_color_pix(data, i, j));
+		{
+			y = (j - draw_start) / draw_end;
+			img_pix_put(&data->mlx.img, i, j, get_color_pix(data, y));
+		}
 		else if (j <= draw_start)
 		{
 			img_pix_put(&data->mlx.img, i, j, *(int *) \

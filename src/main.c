@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/28 17:56:27 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:26:49 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,12 @@ void	ft_parsing(t_data *data)
 		get_map_size(data);
 		data->state++;
 	}
-	free(data->line_start);
-	data->line_start = NULL;
-	data->line = NULL;
 }
 
-int	load_map(t_data *data, char *map)
+void	load_map(t_data *data, char *map)
 {
-	int		fd;
-	int		ret;
+	int	fd;
 
-	fd = open_file(data, map);
-	while (get_next_line(fd, &data->line))
-		ft_parsing(data);
-	free(data->line);
-	data->line_start = NULL;
-	data->line = NULL;
-	close_file(data, fd);
 	fd = open_file(data, map);
 	data->map.content = (char *)ft_calloc(data->map.width * data->map.height \
 		+ 1, sizeof(char));
@@ -65,6 +54,26 @@ int	load_map(t_data *data, char *map)
 		data->line_start = NULL;
 	}
 	close_file(data, fd);
+}
+
+int	load_file(t_data *data, char *map)
+{
+	int		fd;
+	int		ret;
+
+	fd = open_file(data, map);
+	while (get_next_line(fd, &data->line))
+	{
+		ft_parsing(data);
+		free(data->line_start);
+		data->line_start = NULL;
+		data->line = NULL;
+	}
+	free(data->line);
+	data->line_start = NULL;
+	data->line = NULL;
+	close_file(data, fd);
+	load_map(data, map);
 	return (SUCCESS);
 }
 
@@ -95,32 +104,52 @@ char	pixel_to_char(t_data *data, int x, int y)
 
 void	load_addr(t_data *data)
 {
-	data->n.img.ad = mlx_get_data_addr(&data->n.img.mlx_img, \
+	// t_img	*test;
+	// t_mlx	*tmp;
+	
+	// test = malloc(sizeof(t_img));
+	
+	// int	a;
+	// int	b;
+	// tmp = malloc(sizeof(t_mlx));
+	// tmp->mlx = mlx_init();
+	// if (!tmp->mlx)
+	// 	ft_error(data, "could not init MLX\n");
+	// test->mlx_img = mlx_xpm_file_to_image(&tmp->mlx, data->no, &a, &b);
+	// printf("test->mlx_img : %p\n", test->mlx_img);
+	// test->addr = mlx_get_data_addr(&test->mlx_img, \
+	// 	&test->bpp, &test->len, &test->endian);
+	// printf("⛽ %s %d %d %p %d %d %d\n", data->no, a, b, (void *) test->addr, test->bpp, test->len, test->endian);
+	data->n.img.addr = mlx_get_data_addr(&data->n.img.mlx_img, \
 		&data->n.img.bpp, &data->n.img.len, &data->n.img.endian);
-	data->s.img.ad = mlx_get_data_addr(&data->s.img.mlx_img, \
+	printf("⛽ %s %p %d %d %d\n", data->no, (void *) data->n.img.addr, data->n.img.bpp, data->n.img.len, data->n.img.endian);
+	data->s.img.addr = mlx_get_data_addr(&data->s.img.mlx_img, \
 		&data->s.img.bpp, &data->s.img.len, &data->s.img.endian);
-	data->e.img.ad = mlx_get_data_addr(&data->e.img.mlx_img, \
+	printf("⛽ %s %p %d %d %d\n", data->so, (void *) data->s.img.addr, data->s.img.bpp, data->s.img.len, data->s.img.endian);
+	data->e.img.addr = mlx_get_data_addr(&data->e.img.mlx_img, \
 		&data->e.img.bpp, &data->e.img.len, &data->e.img.endian);
-	data->w.img.ad = mlx_get_data_addr(&data->w.img.mlx_img, \
+	printf("⛽ %s %p %d %d %d\n", data->ea, (void *) data->e.img.addr, data->e.img.bpp, data->e.img.len, data->e.img.endian);
+	data->w.img.addr = mlx_get_data_addr(&data->w.img.mlx_img, \
 		&data->w.img.bpp, &data->w.img.len, &data->w.img.endian);
+	printf("⛽ %s %p %d %d %d\n", data->we, (void *) data->w.img.addr, data->w.img.bpp, data->w.img.len, data->w.img.endian);
 }
 
-void	load_texture(t_data *data)
+void	load_textures(t_data *data)
 {
 	data->n.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		"./textures/no.xpm", &data->n.w, &data->n.h);
+		data->no, &data->n.w, &data->n.h);
 	if (!data->n.img.mlx_img)
 		ft_error(data, "mlx failed\n");
 	data->s.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		"./textures/so.xpm", &data->s.w, &data->s.h);
+		data->so, &data->s.w, &data->s.h);
 	if (!data->s.img.mlx_img)
 		ft_error(data, "mlx failed\n");
 	data->e.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		"./textures/ea.xpm", &data->e.w, &data->e.h);
+		data->ea, &data->e.w, &data->e.h);
 	if (!data->e.img.mlx_img)
 		ft_error(data, "mlx failed\n");
 	data->w.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		"./textures/we.xpm", &data->w.w, &data->w.h);
+		data->we, &data->w.w, &data->w.h);
 	if (!data->w.img.mlx_img)
 		ft_error(data, "mlx failed\n");
 	load_addr(data);
@@ -137,9 +166,13 @@ void	launch_mlx(t_data *data)
 	data->mlx.img.mlx_img = mlx_new_image(data->mlx.mlx, WIN_W, WIN_H);
 	if (!data->mlx.img.mlx_img)
 		ft_error(data, "could not create a new image\n");
-	data->mlx.img.ad = mlx_get_data_addr(data->mlx.img.mlx_img, \
+	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.mlx_img, \
 		&data->mlx.img.bpp, &data->mlx.img.len, &data->mlx.img.endian);
-	load_texture(data);
+	load_textures(data);
+	printf("🎸 %p\n", data->n.img.addr);
+	printf("🎸 %p\n", data->s.img.addr);
+	printf("🎸 %p\n", data->e.img.addr);
+	printf("🎸 %p\n", data->w.img.addr);
 	ray_casting(data);
 	mini_map(data);
 	mlx_hook(data->mlx.mlx_win, 2, 1L << 0, key_press, data);
@@ -158,7 +191,7 @@ int	main(int ac, char **av)
 		ft_error(&data, "wrong number of arguments\n");
 	if (map_is_valid(av[1]))
 		ft_error(&data, "invalid map\n");
-	load_map(&data, av[1]);
+	load_file(&data, av[1]);
 	set_map(&data);
 	launch_mlx(&data);
 	return (0);
