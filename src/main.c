@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 17:26:49 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:47:51 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,34 +104,14 @@ char	pixel_to_char(t_data *data, int x, int y)
 
 void	load_addr(t_data *data)
 {
-	// t_img	*test;
-	// t_mlx	*tmp;
-	
-	// test = malloc(sizeof(t_img));
-	
-	// int	a;
-	// int	b;
-	// tmp = malloc(sizeof(t_mlx));
-	// tmp->mlx = mlx_init();
-	// if (!tmp->mlx)
-	// 	ft_error(data, "could not init MLX\n");
-	// test->mlx_img = mlx_xpm_file_to_image(&tmp->mlx, data->no, &a, &b);
-	// printf("test->mlx_img : %p\n", test->mlx_img);
-	// test->addr = mlx_get_data_addr(&test->mlx_img, \
-	// 	&test->bpp, &test->len, &test->endian);
-	// printf("⛽ %s %d %d %p %d %d %d\n", data->no, a, b, (void *) test->addr, test->bpp, test->len, test->endian);
-	data->n.img.addr = mlx_get_data_addr(&data->n.img.mlx_img, \
+	data->n.img.addr = mlx_get_data_addr(data->n.img.mlx_img, \
 		&data->n.img.bpp, &data->n.img.len, &data->n.img.endian);
-	printf("⛽ %s %p %d %d %d\n", data->no, (void *) data->n.img.addr, data->n.img.bpp, data->n.img.len, data->n.img.endian);
-	data->s.img.addr = mlx_get_data_addr(&data->s.img.mlx_img, \
+	data->s.img.addr = mlx_get_data_addr(data->s.img.mlx_img, \
 		&data->s.img.bpp, &data->s.img.len, &data->s.img.endian);
-	printf("⛽ %s %p %d %d %d\n", data->so, (void *) data->s.img.addr, data->s.img.bpp, data->s.img.len, data->s.img.endian);
-	data->e.img.addr = mlx_get_data_addr(&data->e.img.mlx_img, \
+	data->e.img.addr = mlx_get_data_addr(data->e.img.mlx_img, \
 		&data->e.img.bpp, &data->e.img.len, &data->e.img.endian);
-	printf("⛽ %s %p %d %d %d\n", data->ea, (void *) data->e.img.addr, data->e.img.bpp, data->e.img.len, data->e.img.endian);
-	data->w.img.addr = mlx_get_data_addr(&data->w.img.mlx_img, \
+	data->w.img.addr = mlx_get_data_addr(data->w.img.mlx_img, \
 		&data->w.img.bpp, &data->w.img.len, &data->w.img.endian);
-	printf("⛽ %s %p %d %d %d\n", data->we, (void *) data->w.img.addr, data->w.img.bpp, data->w.img.len, data->w.img.endian);
 }
 
 void	load_textures(t_data *data)

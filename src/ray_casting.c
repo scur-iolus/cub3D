@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 16:25:37 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:52:30 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,9 @@ static int	get_color_pix(t_data *data, double y)
 		t = &data->e;
 	else if (data->hit == 'W')
 		t = &data->w;
-	pix_y = 0; // FIXMEy * t->h;
+	pix_y = y * t->h;
 	pix_x = data->ray_pos * t->w;
-	//data->n.img.addr[texy * texture[0].length / 4 + texx];
-	// ad + (y * img->len + x * (img->bpp / 8));
-	// printf("🛹 ca glisse\n");
-	p = t->img.addr;
-	// p = t->img.addr + (pix_y * t->img.len + pix_x * (t->img.bpp / 8));
+	p = t->img.addr + (pix_y * t->img.len + pix_x * (t->img.bpp / 8));
 	return (*(int *)p);
 }
 
