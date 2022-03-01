@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 17:47:51 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:53:31 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,6 @@ void	launch_mlx(t_data *data)
 	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.mlx_img, \
 		&data->mlx.img.bpp, &data->mlx.img.len, &data->mlx.img.endian);
 	load_textures(data);
-	printf("🎸 %p\n", data->n.img.addr);
-	printf("🎸 %p\n", data->s.img.addr);
-	printf("🎸 %p\n", data->e.img.addr);
-	printf("🎸 %p\n", data->w.img.addr);
 	ray_casting(data);
 	mini_map(data);
 	mlx_hook(data->mlx.mlx_win, 2, 1L << 0, key_press, data);
