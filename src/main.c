@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:26:55 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 17:53:31 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:12:19 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,45 +36,27 @@ void	ft_parsing(t_data *data)
 	}
 }
 
-void	load_map(t_data *data, char *map)
+t_bool	is_wall(t_data *data)
 {
-	int	fd;
+	int		block_num;
 
-	fd = open_file(data, map);
-	data->map.content = (char *)ft_calloc(data->map.width * data->map.height \
-		+ 1, sizeof(char));
-	if (!data->map.content)
-		ft_error(data, "malloc failed\n");
-	while (get_next_line(fd, &data->line))
+	block_num = (data->map.height - 1 - data->map_y) * \
+		data->map.width + data->map_x;
+	if (data->map.content[block_num] != '1')
+		return (FALSE);
+	if (data->side_dist_x > data->side_dist_y)
 	{
-		data->line_start = data->line;
-		if ((data->map_start--) <= 0 && data->line[0])
-			get_map_content(data);
-		free(data->line_start);
-		data->line_start = NULL;
+		data->hit = 'S';
+		if (data->step_y > 0)
+			data->hit = 'N';
 	}
-	close_file(data, fd);
-}
-
-int	load_file(t_data *data, char *map)
-{
-	int		fd;
-	int		ret;
-
-	fd = open_file(data, map);
-	while (get_next_line(fd, &data->line))
+	else
 	{
-		ft_parsing(data);
-		free(data->line_start);
-		data->line_start = NULL;
-		data->line = NULL;
+		data->hit = 'W';
+		if (data->step_x > 0)
+			data->hit = 'E';
 	}
-	free(data->line);
-	data->line_start = NULL;
-	data->line = NULL;
-	close_file(data, fd);
-	load_map(data, map);
-	return (SUCCESS);
+	return (TRUE);
 }
 
 char	pixel_to_char(t_data *data, int x, int y)
@@ -100,39 +82,6 @@ char	pixel_to_char(t_data *data, int x, int y)
 	pp + diff_x + diff_y >= data->map.width * data->map.height)
 		return ('0');
 	return (data->map.content[pp + diff_x + diff_y]);
-}
-
-void	load_addr(t_data *data)
-{
-	data->n.img.addr = mlx_get_data_addr(data->n.img.mlx_img, \
-		&data->n.img.bpp, &data->n.img.len, &data->n.img.endian);
-	data->s.img.addr = mlx_get_data_addr(data->s.img.mlx_img, \
-		&data->s.img.bpp, &data->s.img.len, &data->s.img.endian);
-	data->e.img.addr = mlx_get_data_addr(data->e.img.mlx_img, \
-		&data->e.img.bpp, &data->e.img.len, &data->e.img.endian);
-	data->w.img.addr = mlx_get_data_addr(data->w.img.mlx_img, \
-		&data->w.img.bpp, &data->w.img.len, &data->w.img.endian);
-}
-
-void	load_textures(t_data *data)
-{
-	data->n.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		data->no, &data->n.w, &data->n.h);
-	if (!data->n.img.mlx_img)
-		ft_error(data, "mlx failed\n");
-	data->s.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		data->so, &data->s.w, &data->s.h);
-	if (!data->s.img.mlx_img)
-		ft_error(data, "mlx failed\n");
-	data->e.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		data->ea, &data->e.w, &data->e.h);
-	if (!data->e.img.mlx_img)
-		ft_error(data, "mlx failed\n");
-	data->w.img.mlx_img = mlx_xpm_file_to_image(data->mlx.mlx, \
-		data->we, &data->w.w, &data->w.h);
-	if (!data->w.img.mlx_img)
-		ft_error(data, "mlx failed\n");
-	load_addr(data);
 }
 
 void	launch_mlx(t_data *data)

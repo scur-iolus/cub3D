@@ -1,5 +1,4 @@
-- La gestion des fenêtres doit être parfaite : gestion de la minimalisation, du passage
-d’une autre fenetre, etc.
+- Supprimer -fsanitize=address du Makefile
 
 - Pas de newline final dans une map ?
 
@@ -30,13 +29,3 @@ d’une autre fenetre, etc.
 🔸F ou C avec un chiffre supérieur à 255
 🔸Un identifiant mauvais (ex. E au lieu de EA)
 🔸Pas de joueur ou plusieurs joueurs
-
-RAYCASTING
-https://lodev.org/cgtutor/raycasting.html
-https://github.com/iciamyplant/Cub3d-Linux
-https://www.youtube.com/watch?v=js7HW65MmNw&list=PL0H9-oZl_QOHM34HvD3DiGmwmj5X7GvTW
-
-MINILIBX
-https://github.com/qst0/ft_libgfx
-https://gist.github.com/KokaKiwi/4052375
-https://github.com/keuhdall/images_example/blob/master/README.md

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 14:27:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 23:13:29 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:03:06 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 # define MM_W_MAX			380
 # define MM_H_MIN			812
 # define MM_H_MAX			1050
-
 # define W					119
 # define S					115
 # define A					97
@@ -52,7 +51,6 @@
 # define VIEW_W				0.66
 
 typedef char	t_bool;
-
 typedef struct s_map
 {
 	char			*content;
@@ -63,7 +61,6 @@ typedef struct s_map
 	int				block_h;
 	char			compass;
 }					t_map;
-
 typedef struct s_color
 {
 	t_bool			not_yet;
@@ -71,7 +68,6 @@ typedef struct s_color
 	int				g;
 	int				b;
 }					t_color;
-
 typedef struct s_img
 {
 	void	*mlx_img;
@@ -80,7 +76,6 @@ typedef struct s_img
 	int		len;
 	int		endian;
 }	t_img;
-
 typedef struct s_mlx
 {
 	void			*mlx;
@@ -130,7 +125,6 @@ typedef struct s_text
 	int				w;
 	struct s_img	img;
 }	t_text;
-
 typedef struct s_data
 {
 	t_map			map;
@@ -172,6 +166,12 @@ typedef struct s_data
 	struct s_text	w;
 }					t_data;
 
+//MAIN
+t_bool		is_wall(t_data *data);
+void		launch_mlx(t_data *data);
+char		pixel_to_char(t_data *data, int x, int y);
+void		ft_parsing(t_data *data);
+
 // INIT
 void		init_data(t_data *data);
 void		init_color(t_data *data);
@@ -197,7 +197,6 @@ void		close_file(t_data *data, int fd);
 int			free_n_exit(void *data);
 void		img_pix_put(t_img *img, int x, int y, int color);
 char		pixel_to_char(t_data *data, int x, int y);
-
 
 // GET_CONFIG
 size_t		get_coord_len(t_data *data, char *str);
@@ -245,7 +244,14 @@ void		set_delta(t_data *data);
 void		set_side_dist(t_data *data);
 void		set_pos_xy(t_data *data);
 
+//LOAD
+void		load_textures(t_data *data);
+void		load_map(t_data *data, char *map);
+void		wall_builder(t_data *data, int i);
+int			load_file(t_data *data, char *map);
+
 //RAY_CASTING
 void		ray_casting(t_data *data);
+void		render_ray(t_data *data, int i, int draw_start, int draw_end);
 
 #endif

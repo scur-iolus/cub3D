@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:10 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/28 12:12:21 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 17:45:02 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	free_data(t_data *data)
 		free(data->color_str);
 	if (data->line_start)
 		free(data->line_start);
-	if (data->line)
-		free(data->line);
 	free_texture(data);
 	if (data->mlx.img.mlx_img)
 		mlx_destroy_image(data->mlx.mlx, data->mlx.img.mlx_img);

@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 15:48:16 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/02 15:50:40 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 17:45:57 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_strncpy(char *s, char **d, int n)
 	int	i;
 
 	i = -1;
-	//TODO suppose que s pas NULL + d existe et >n
 	while (++i < n)
 		(*d)[i] = s[i];
 }

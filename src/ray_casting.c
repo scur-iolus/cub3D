@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/02 17:06:41 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:00:30 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,6 @@ static void	set_ray_pos(t_data *data, int i)
 		data->ray_pos += 1.;
 	if (data->hit == 'S' || data->hit == 'E')
 		data->ray_pos = 1. - data->ray_pos;
-}
-
-static t_bool	is_wall(t_data *data)
-{
-	int		block_num;
-
-	block_num = (data->map.height - 1 - data->map_y) * \
-		data->map.width + data->map_x;
-	if (data->map.content[block_num] != '1')
-		return (FALSE);
-	if (data->side_dist_x > data->side_dist_y)
-	{
-		data->hit = 'S';
-		if (data->step_y > 0)
-			data->hit = 'N';
-	}
-	else
-	{
-		data->hit = 'W';
-		if (data->step_x > 0)
-			data->hit = 'E';
-	}
-	return (TRUE);
 }
 
 static void	check_hit(t_data *data)
@@ -100,7 +77,7 @@ static int	get_color_pix(t_data *data, double y)
 	return (*(int *)p);
 }
 
-static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
+void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 {
 	int		j;
 	double	y;
@@ -126,22 +103,6 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 			(unsigned char [4]){data->f.b, data->f.g, data->f.r});
 		}
 	}
-}
-
-void	wall_builder(t_data *data, int i)
-{
-	int		draw_start;
-	int		draw_end;
-	double	wall_dist;
-
-	if (data->hit == 'N' || data->hit == 'S')
-		wall_dist = data->side_dist_y;
-	else
-		wall_dist = data->side_dist_x;
-	data->line_height = (WIN_H / wall_dist);
-	draw_start = (WIN_H / 2 - 1) - data->line_height / 2;
-	draw_end = (WIN_H / 2 - 1) + data->line_height / 2;
-	render_ray(data, i, draw_start, draw_end);
 }
 
 void	ray_casting(t_data *data)

@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/03/01 17:39:14 by llalba           ###   ########.fr        #
+#    Updated: 2022/03/02 17:59:42 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC_LIST		= \
 				main.c \
 				gnl.c \
 				utils.c \
+				necessary.c \
 				ft_split.c \
 				get_config.c \
 				get_map.c \
@@ -42,6 +43,7 @@ SRC_LIST		= \
 				mini_map.c \
 				move.c \
 				ray_casting.c \
+				load.c \
 				settings.c \
 				look.c 
 

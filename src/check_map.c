@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:59:36 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/03 11:43:09 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 18:32:02 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static t_bool	check_line(t_data *data, int i, char *content)
 	int	j;
 
 	j = i - 1;
+
 	if (i == (i / data->map.width) * data->map.width || \
 		i == (i / data->map.width + 1) * data->map.width)
 		return (FALSE);
@@ -84,8 +85,10 @@ static t_bool	check_column_down(t_data *data, int i, char *content)
 			return (TRUE);
 		if (content[j * w + col_i] == ' ' || content[j * w + col_i] == '\0')
 			return (FALSE);
+		printf("💚 %c\n", content[j * w + col_i]); // FIXME
 		j++;
 	}
+	printf("🦔 check_column_down %d %c\n", i, data->map.content[i]); // FIXME
 	return (FALSE);
 }
 
