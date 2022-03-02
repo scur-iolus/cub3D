@@ -3,13 +3,7 @@ d’une autre fenetre, etc.
 
 - Pas de newline final dans une map ?
 
-- Vous devez afficher des textures différentes (vous avez le choix) selon si les murs
-sont face nord, sud, est, ouest.
-
 - Faites pivoter le point de vue avec la souris.
-
-- Votre programme doit être capable d’avoir des couleurs différentes pour le sol et
-le plafond.
 
 - Messages d'erreur plus explicites.
 

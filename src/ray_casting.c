@@ -6,16 +6,30 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:49:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/01 23:10:31 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/02 17:06:41 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+static void	set_ray_pos(t_data *data, int i)
+{
+	double	tmp;
+	double	ray_dir;
+
+	if (data->side_dist_x > data->side_dist_y)
+		data->ray_pos = modf(data->side_dist_y * data->ray_dir_x + 0.5, &tmp);
+	else
+		data->ray_pos = modf(data->side_dist_x * data->ray_dir_y + 0.5, &tmp);
+	if (data->ray_pos < 0.)
+		data->ray_pos += 1.;
+	if (data->hit == 'S' || data->hit == 'E')
+		data->ray_pos = 1. - data->ray_pos;
+}
+
 static t_bool	is_wall(t_data *data)
 {
 	int		block_num;
-	double	tmp;
 
 	block_num = (data->map.height - 1 - data->map_y) * \
 		data->map.width + data->map_x;
@@ -26,21 +40,17 @@ static t_bool	is_wall(t_data *data)
 		data->hit = 'S';
 		if (data->step_y > 0)
 			data->hit = 'N';
-		data->ray_pos = modf(data->side_dist_y * data->ray_dir_x \
-			/ data->dir_y + 0.5, &tmp);
 	}
 	else
 	{
 		data->hit = 'W';
 		if (data->step_x > 0)
 			data->hit = 'E';
-		data->ray_pos = modf(data->side_dist_x * data->ray_dir_y \
-			/ data->dir_x + 0.5, &tmp);
 	}
 	return (TRUE);
 }
 
-static void	check_hit(t_data *data, int n)
+static void	check_hit(t_data *data)
 {
 	int	i;
 	int	block_num;
@@ -102,18 +112,18 @@ static void	render_ray(t_data *data, int i, int draw_start, int draw_end)
 			j = MM_H_MAX + 1;
 		if (j > draw_start && j < draw_end)
 		{
-			y = ((double)j - (double)draw_start) / (double)draw_end;
+			y = (double)(j - draw_start) / (double)(draw_end - draw_start);
 			img_pix_put(&data->mlx.img, i, j, get_color_pix(data, y));
 		}
 		else if (j <= draw_start)
 		{
 			img_pix_put(&data->mlx.img, i, j, *(int *) \
-			(unsigned char [4]){data->f.b, data->f.g, data->f.r});
+			(unsigned char [4]){data->c.b, data->c.g, data->c.r});
 		}
 		else if (j >= draw_end)
 		{
 			img_pix_put(&data->mlx.img, i, j, *(int *) \
-			(unsigned char [4]){data->c.b, data->c.g, data->c.r});
+			(unsigned char [4]){data->f.b, data->f.g, data->f.r});
 		}
 	}
 }
@@ -129,8 +139,8 @@ void	wall_builder(t_data *data, int i)
 	else
 		wall_dist = data->side_dist_x;
 	data->line_height = (WIN_H / wall_dist);
-	draw_start = fmax(0, WIN_H / 2 - data->line_height / 2);
-	draw_end = fmin(WIN_H, WIN_H / 2 + data->line_height / 2);
+	draw_start = (WIN_H / 2 - 1) - data->line_height / 2;
+	draw_end = (WIN_H / 2 - 1) + data->line_height / 2;
 	render_ray(data, i, draw_start, draw_end);
 }
 
@@ -150,15 +160,8 @@ void	ray_casting(t_data *data)
 		data->ray_dir_y = data->dir_y + data->plane_y * data->camera_x;
 		set_delta(data);
 		set_side_dist(data);
-		check_hit(data, i);
-		if (data->ray_pos < 0.)
-			data->ray_pos = 1. + data->ray_pos;
-		if (i == 0)
-			printf("🎄 %lf %lf %lf -> %lf\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
-		if (i == WIN_W / 2 - 1)
-			printf("🎄 %lf %lf %lf -> %lf\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
-		if (i == WIN_W - 1)
-			printf("🎄 %lf %lf %lf -> %lf\n\n", data->side_dist_y, data->ray_dir_x, data->dir_y, data->ray_pos);
+		check_hit(data);
+		set_ray_pos(data, i);
 		wall_builder(data, i);
 		i++;
 	}
