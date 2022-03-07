@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:04:19 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/02 18:14:05 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:44:22 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	set_map(t_data *data)
 	char	c;
 
 	i = -1;
-	check_frame(data);
 	while (++i < data->map.width * data->map.height)
 	{
 		c = data->map.content[i];
@@ -89,6 +88,7 @@ void	set_map(t_data *data)
 			|| c == 'E' || c == 'W'))
 			ft_error(data, "invalid map\n");
 	}
+	check_frame(data);
 	if (!data->map.pos)
 		ft_error(data, "invalid map\n");
 	check_path(data);
