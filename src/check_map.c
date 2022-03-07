@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 13:59:36 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/03 17:58:11 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:51:08 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,11 @@ void	check_frame(t_data *data)
 			!check_column_up(data, i, data->map.content) || \
 			!check_column_down(data, i, data->map.content))
 			ft_error(data, "invalid map\n");
+	}
+	i = -1;
+	while (++i < w * h)
+	{
+		if (data->map.content[i] == ' ')
+			data->map.content[i] = '1';
 	}
 }

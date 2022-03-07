@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:04:19 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/07 15:44:22 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/07 15:51:02 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	set_map(t_data *data)
 	while (++i < data->map.width * data->map.height)
 	{
 		c = data->map.content[i];
-		if (c == ' ')
-			data->map.content[i] = '1';
 		if (!data->map.pos && (c == 'N' || c == 'S' || c == 'E' || c == 'W'))
 		{
 			data->map.compass = c;
