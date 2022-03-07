@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:52:05 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/02 18:10:11 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/07 14:25:24 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ int	load_file(t_data *data, char *map)
 	int		ret;
 
 	fd = open_file(data, map);
-	while (get_next_line(fd, &data->line))
+	while (get_next_line(fd, &data->line) || (data->line && *data->line))
 	{
 		ft_parsing(data);
 		free(data->line_start);
 		data->line_start = NULL;
 		data->line = NULL;
 	}
-	free(data->line);
+	if (data->line)
+		free(data->line);
 	data->line_start = NULL;
 	data->line = NULL;
 	close_file(data, fd);
@@ -75,7 +76,7 @@ void	load_map(t_data *data, char *map)
 		+ 1, sizeof(char));
 	if (!data->map.content)
 		ft_error(data, "malloc failed\n");
-	while (get_next_line(fd, &data->line))
+	while (get_next_line(fd, &data->line) || (data->line && *data->line))
 	{
 		data->line_start = data->line;
 		if ((data->map_start--) <= 0 && data->line[0])
@@ -84,6 +85,8 @@ void	load_map(t_data *data, char *map)
 		data->line_start = NULL;
 		data->line = NULL;
 	}
+	if (data->line)
+		free(data->line);
 	close_file(data, fd);
 }
 
