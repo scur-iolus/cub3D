@@ -6,7 +6,7 @@
 #    By: llalba <llalba@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/25 14:25:58 by llalba            #+#    #+#              #
-#    Updated: 2022/03/02 17:59:42 by llalba           ###   ########.fr        #
+#    Updated: 2022/03/09 15:51:37 by llalba           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,9 +51,7 @@ SRC				= $(SRC_LIST)
 
 OBJ				= $(SRC:%.c=$(OBJ_DIR)%.o)
 
-DEPS			= $(OBJ:%.o=%.d)
-
--include $(DEPS)
+DEPS			= $(SRC:%.c=$(OBJ_DIR)%.d)
 
 $(NAME):		$(OBJ)
 				@$(call green,"Source code compiled in ")
@@ -65,6 +63,8 @@ $(NAME):		$(OBJ)
 				@$(call filename,"'$(NAME)'")
 				@$(call green," successfully created. ✅")
 				@/bin/echo -e "\n\n🚀 You're ready to go."
+
+-include $(DEPS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 				@mkdir -p $(OBJ_DIR)
