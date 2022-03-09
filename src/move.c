@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:44:57 by llalba            #+#    #+#             */
-/*   Updated: 2022/02/24 16:34:57 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/09 15:54:53 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,31 @@ void	step_backwards(t_data *data)
 		data->map.pos = next_pos;
 }
 
-int	key_press(int key, void *param)
+int	key_press(int k, void *param)
 {
 	t_data	*data;
 
 	data = param;
-	if (key == W)
+	if (k == W)
 		step_forward(data);
-	else if (key == A)
+	else if (k == A)
 		move_left(data);
-	else if (key == D)
+	else if (k == D)
 		move_right(data);
-	else if (key == S)
+	else if (k == S)
 		step_backwards(data);
-	else if (key == ESC)
+	else if (k == ESC)
 		free_n_exit(data);
-	else if (key == RIGHT)
+	else if (k == RIGHT)
 		look_right(data);
-	else if (key == LEFT)
+	else if (k == LEFT)
 		look_left(data);
-	ray_casting(data);
-	mini_map(data);
-	mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
-		data->mlx.img.mlx_img, 0, 0);
+	if (k == W || k == A || k == D || k == S || k == RIGHT || k == LEFT)
+	{
+		ray_casting(data);
+		mini_map(data);
+		mlx_put_image_to_window(data->mlx.mlx, data->mlx.mlx_win, \
+			data->mlx.img.mlx_img, 0, 0);
+	}
 	return (0);
 }
