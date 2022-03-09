@@ -6,7 +6,7 @@
 /*   By: llalba <llalba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:49:18 by llalba            #+#    #+#             */
-/*   Updated: 2022/03/02 17:50:02 by llalba           ###   ########.fr       */
+/*   Updated: 2022/03/09 15:56:47 by llalba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,14 @@ int	open_file(t_data *data, char *map)
 {
 	int		fd;
 
-	fd = open(map, O_RDONLY);
+	fd = open(map, __O_DIRECTORY);
+	if (fd > 0)
+	{
+		if (close(fd) == -1)
+			ft_error(data, "close failed\n");
+		ft_error(data, "invalid map\n");
+	}
+	fd = open(map, O_RDONLY | __O_NOFOLLOW);
 	if (fd < 0)
 		ft_error(data, "invalid map\n");
 	return (fd);
